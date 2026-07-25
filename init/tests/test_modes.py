@@ -198,3 +198,49 @@ class TestMarkerSilences:
         assert warn.returncode == 0
         assert BANNER not in warn.stderr
         assert block.returncode == 0  # block exits 0 when skipping
+
+
+# ──────────────────────────────────────────────────────────────
+# Cross-mode invariant — a press receipt silences everything too
+# ──────────────────────────────────────────────────────────────
+
+
+class TestPressReceiptSilences:
+    """A fork rebranded by template-press carries press/press-receipt.toml
+    instead of init/.blueprint-initialized. The guard accepts either: the
+    rebrand engine is migrating out of this repo, and a pressed fork must
+    not be blocked forever by a guard that only knows the embedded engine's
+    artifact. Additive — the legacy marker keeps working (TestMarkerSilences)."""
+
+    @pytest.fixture(params=["template_button", "gh_template", "clone_reinit", "fork"])
+    def proj(self, tmp_path, request):
+        return build_fixture(tmp_path, request.param)
+
+    def test_receipt_silences_warn_and_block(self, proj):
+        press_dir = proj / "press"
+        press_dir.mkdir(exist_ok=True)
+        (press_dir / "press-receipt.toml").write_text(
+            '[press]\nversion = "3.3.0"\n',
+            encoding="utf-8",
+        )
+        warn = run_guard(proj, "warn")
+        block = run_guard(proj, "block")
+        assert warn.returncode == 0
+        assert BANNER not in warn.stderr, (
+            "a press-rebranded fork must not see the un-initialized banner"
+        )
+        assert block.returncode == 0, "block must exit 0 when a press receipt exists"
+
+    def test_unrelated_press_dir_does_not_silence(self, proj):
+        """Only the receipt counts — a press/ dir without one is ordinary
+        content and must leave the guard firing."""
+        press_dir = proj / "press"
+        press_dir.mkdir(exist_ok=True)
+        (press_dir / "press-source.toml").write_text(
+            '[identity]\napp_name = "plbp"\n',
+            encoding="utf-8",
+        )
+        warn = run_guard(proj, "warn")
+        block = run_guard(proj, "block")
+        assert BANNER in warn.stderr, "a press/ dir without a receipt must not skip"
+        assert block.returncode == 1
