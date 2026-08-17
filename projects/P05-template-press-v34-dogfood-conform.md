@@ -36,3 +36,10 @@ $ echo $?
 
 ### Manual Verification
 - Throwaway repo CI green (release-please may stay credential-gated red)
+
+### Known coexistence limitation (deferred to the full-conform follow-up)
+- Legacy `just init` rewrites the six tracked fields in `press/press-source.toml`
+  but leaves `display_name` behind — `init/common.py` `BLUEPRINT_IDENTITY` has no
+  display-name field (the legacy engine never handled the display name; Run-3
+  PROBLEM-19). Resolved by the full conform (init/ retirement), decided at the
+  Run 4 scope gate; not by extending the retiring engine.
