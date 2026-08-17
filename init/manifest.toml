@@ -21,6 +21,7 @@ mode = "structured"
 field = "author"
 current = ["Steve Morin"]
 files = [
+  "press/press-source.toml",                           # 1x
   ".github/FUNDING.yml",                                 # 1x
   ".github/ISSUE_TEMPLATE/01-feature-request.yml",       # 1x
   ".github/ISSUE_TEMPLATE/02-documentation-request.yml", # 1x
@@ -97,6 +98,9 @@ mode = "structured"
 field = "app_name"
 current = ["plbp"]
 files = [
+  "press/press-rules.toml",                            # 2x (comment)
+  "press/press-source.toml",                           # 1x
+  "projects/P05-template-press-v34-dogfood-conform.md", # 1x
   ".github/workflows/ci.yml",                          # build-smoke (WL-004)
   "AGENTS.md",                                          # 1x
   "Dockerfile",                                         # 2x
@@ -159,6 +163,7 @@ mode = "text"
 field = "app_name_upper"
 current = ["PLBP"]
 files = [
+  "press/press-rules.toml",                            # 1x (comment)
   "AGENTS.md",                                        # 1x
   "Dockerfile",                                       # 1x
   "EXAMPLECLI.md",                                    # 12x
@@ -211,6 +216,7 @@ mode = "structured"
 field = "email"
 current = ["steve.morin@gmail.com"]
 files = [
+  "press/press-source.toml",                           # 1x
   "docs/research/0003-init-post-init-analysis.md", # 1x
 ]
 mode = "text"
@@ -229,6 +235,7 @@ mode = "structured"
 field = "owner"
 current = ["smorinlabs"]
 files = [
+  "press/press-source.toml",                           # 1x
   ".github/CONTRIBUTING.md",                      # 1x
   ".github/ISSUE_TEMPLATE/config.yml",            # 1x
   "Justfile",                                     # 1x
@@ -266,6 +273,7 @@ mode = "structured"
 field = "package_name"
 current = ["py_launch_blueprint"]
 files = [
+  "press/press-source.toml",                           # 1x
   ".coderabbit.yaml",                                  # 1x (import convention)
   ".github/workflows/ci.yml",                          # 2x
   ".github/workflows/lint.yml",                        # 2x (bandit job)
@@ -379,6 +387,7 @@ mode = "structured"
 field = "repo_name"
 current = ["py-launch-blueprint"]
 files = [
+  "press/press-source.toml",                           # 1x
   ".agents/plugins/marketplace.json",             # 2x
   ".devcontainer/devcontainer.json",              # 1x
   ".flox/env.json",                               # 1x
@@ -474,6 +483,14 @@ reason = "template-press dogfood spec (v3, convergence) is blueprint-only histor
 [[remove]]
 path = "docs/superpowers/plans/2026-06-12-template-press-bootstrap-dogfood.md"
 reason = "template-press dogfood plan is blueprint-only history — P0004"
+
+[[remove]]
+path = "docs/superpowers/specs/2026-08-16-template-press-v34-dogfood-design.md"
+reason = "template-press dogfood spec (v4, conform) is blueprint-only history — P05"
+
+[[remove]]
+path = "docs/superpowers/plans/2026-08-16-template-press-v34-dogfood-conform.md"
+reason = "template-press dogfood plan (v4, conform) is blueprint-only history — P05"
 
 [[remove]]
 path = "docs/design/0005-template-press-tui-design.md"

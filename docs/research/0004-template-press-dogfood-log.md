@@ -345,3 +345,28 @@ conform can use unpinned `uvx template-press` (≥3.2.0).
   `press verify` cannot reach exit 0 on any repo with a `CHANGELOG.md` without
   target-side ignores. Disposition: template-press — reconcile the
   exclude/reset/regenerate/scan contract (register **§6**).
+
+## Run 4 — v3.4/P07 conform + rebrand + publish (2026-08-16)
+
+**Context.** Spec `docs/superpowers/specs/2026-08-16-template-press-v34-dogfood-design.md`
+(P05). Press-under-test: template-press `main` @ `bd52085` (P07 merge; v3.4.0
+tag + platform-conditional declared commands). Target: this repo, branch
+`feat/press-conform` from `origin/main` @ `734abfd`.
+
+**Expectations.** All five Run-3 gaps (G1–G5) now have opt-in engine support
+(G3/G4/G5 in v3.3.0: substring mode, display_name, replace/path rules;
+G1/G2 in v3.4.0: declared [[reset]]/[[regenerate]]). Prediction: with a
+fully-declared config, verify reaches exit 0 with zero ignores. Any leak is a
+config-authoring gap (blueprint) or an engine regression (template-press) —
+no known-gap bucket remains. Numbering continues at PROBLEM-21.
+
+### Steps
+
+| time (UTC) | step | command / action | outcome |
+|---|---|---|---|
+| 2026-08-17T04:33:05Z | T03 (source config) | wrote press/press-source.toml (7 fields incl display_name); uv run press verify --target <worktree> --json | PASS gate: config accepted (no exit-2 missing-config); exit 1 with leaks dominated by CHANGELOG — rules not yet declared |
+| 2026-08-17T04:33:39Z | T05 (rules + check-tools) | wrote press/press-rules.toml (substring app_name+app_name_upper; regenerate uv.lock/bun.lock; reset CHANGELOG) + regen scripts; press check-tools --target <worktree> | PASS exit 0: git, uv, scripts/regen-bun-lock.sh all resolve; win32 entry filtered on darwin |
+| 2026-08-17T04:34:46Z | T06/TS02 (full verify) | uv run press verify --target <worktree> --json (rules declared) | **PASS exit 0 — verified true, 0 surviving, 0 ignores, 0 stale, 2 exempt (declared reset+regenerate)**. Spec §2 prediction confirmed: G1–G5 all closed by declaration. Control: same target pre-rules leaked en masse (T03 row). No PROBLEM entries from verify. |
+| 2026-08-17T04:51:12Z | T08 (scope gate) | user decision at gate | DECIDED: full conform (init/ deletion + CI cutover) deferred to a follow-up plan AFTER publish proof (Tasks 10–13); PR #505 authorized to merge now. Run-3 pause condition discharged (green via declarations). |
+| 2026-08-17T04:58:43Z | T10.1 (init integrity) | added press/spec/plan/P05 files to init/manifest.toml ([[replace]] text blocks + 2 [[remove]] entries); check_manifest_drift + init tests | PASS: drift ok; 82 passed; press verify re-run exit 0 after manifest edits |
+| 2026-08-17T04:58:43Z | T10.2 (full gate) | make check && just check | PASS (pre-existing non-fatal yamllint line-length warnings only, per Run 1 precedent) |
