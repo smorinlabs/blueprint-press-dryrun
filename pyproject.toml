@@ -97,7 +97,7 @@ dev = [
   "pytest-xdist>=3.6",     # WL-008 — parallel test execution (`-n auto`)
   "pytest-timeout>=2.3",   # WL-009 — per-test timeout guard (hung test fails loud)
   "pytest-randomly>=3.15", # WL-010 — randomized order surfaces inter-test coupling
-  "hypothesis>=6.100",     # WL-013 — property-based tests at parse/serialize seams
+  "hypothesis>=6.165.3",     # WL-013 — property-based tests at parse/serialize seams
   "responses>=0.25",       # HEX-40 — HTTP mock for the port-contract suite
 ]
 
