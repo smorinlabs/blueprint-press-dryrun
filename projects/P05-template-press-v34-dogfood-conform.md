@@ -3,6 +3,8 @@
 bring this repo's press config in sync — verify exit 0 via declarations, a
 rebranded instance passes its own checks, and an instance publishes to a
 throwaway repo. Spec: docs/superpowers/specs/2026-08-16-template-press-v34-dogfood-design.md
+(spec and plan are blueprint-only history — `init/manifest.toml` removes them in
+generated projects, so this link resolves only in the blueprint itself)
 
 **Out of Scope**
 - press provision/status (M6); G4 display-name design changes beyond using the
