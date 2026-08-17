@@ -12,7 +12,7 @@ throwaway repo. Spec: docs/superpowers/specs/2026-08-16-template-press-v34-dogfo
 - [x] [P05-T01] Register project + open dogfood log Run 4
 - [x] [P05-T02] Author press/press-source.toml (from scratch)
 - [x] [P05-T03] Author regen scripts + press/press-rules.toml
-- [ ] [P05-T04] Satisfy init-system integrity for the press/ files
+- [x] [P05-T04] Satisfy init-system integrity for the press/ files
 - [x] [P05-TS01] press check-tools exits 0 against the worktree
 - [x] [P05-TS02] press verify reaches exit 0, zero ignores
 - [x] [P05-T05] Scope gate decision recorded (user)
