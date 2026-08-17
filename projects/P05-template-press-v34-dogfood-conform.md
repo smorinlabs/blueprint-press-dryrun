@@ -15,7 +15,7 @@ throwaway repo. Spec: docs/superpowers/specs/2026-08-16-template-press-v34-dogfo
 - [ ] [P05-T04] Satisfy init-system integrity for the press/ files
 - [x] [P05-TS01] press check-tools exits 0 against the worktree
 - [x] [P05-TS02] press verify reaches exit 0, zero ignores
-- [ ] [P05-T05] Scope gate decision recorded (user)
+- [x] [P05-T05] Scope gate decision recorded (user)
 - [ ] [P05-T06] PR #505 merged (user-confirmed)
 - [ ] [P05-T07] Round-1 PR merged; verify green from fresh main clone
 - [ ] [P05-TS03] Local rebrand battery passes (dry-run/apply/re-press/check-tools/instance checks)
