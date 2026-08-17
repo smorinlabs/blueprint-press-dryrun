@@ -345,3 +345,22 @@ conform can use unpinned `uvx template-press` (≥3.2.0).
   `press verify` cannot reach exit 0 on any repo with a `CHANGELOG.md` without
   target-side ignores. Disposition: template-press — reconcile the
   exclude/reset/regenerate/scan contract (register **§6**).
+
+## Run 4 — v3.4/P07 conform + rebrand + publish (2026-08-16)
+
+**Context.** Spec `docs/superpowers/specs/2026-08-16-template-press-v34-dogfood-design.md`
+(P05). Press-under-test: template-press `main` @ `bd52085` (P07 merge; v3.4.0
+tag + platform-conditional declared commands). Target: this repo, branch
+`feat/press-conform` from `origin/main` @ `734abfd`.
+
+**Expectations.** All five Run-3 gaps (G1–G5) now have opt-in engine support
+(G3/G4/G5 in v3.3.0: substring mode, display_name, replace/path rules;
+G1/G2 in v3.4.0: declared [[reset]]/[[regenerate]]). Prediction: with a
+fully-declared config, verify reaches exit 0 with zero ignores. Any leak is a
+config-authoring gap (blueprint) or an engine regression (template-press) —
+no known-gap bucket remains. Numbering continues at PROBLEM-21.
+
+### Steps
+
+| time (UTC) | step | command / action | outcome |
+|---|---|---|---|
