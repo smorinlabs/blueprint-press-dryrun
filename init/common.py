@@ -43,18 +43,18 @@ def is_bootstrap_path(path: Path) -> bool:
 
 
 BLUEPRINT_IDENTITY: dict[str, str] = {
-    "package_name": "py_launch_blueprint",
-    "repo_name": "py-launch-blueprint",
-    "app_name": "plbp",
-    "app_name_upper": "PLBP",
+    "package_name": "blueprint_press_dryrun",
+    "repo_name": "blueprint-press-dryrun",
+    "app_name": "bpd",
+    "app_name_upper": "BPD",
     "author": "Steve Morin",
     "email": "steve.morin@gmail.com",
     "owner": "smorinlabs",
 }
 
 # Fields computed from another answer rather than asked / required in answers
-# files: app_name_upper = app_name.upper() (the PLBP_* env-var prefix and the
-# _PLBP_COMPLETE completion var). Everything else is prompted.
+# files: app_name_upper = app_name.upper() (the BPD_* env-var prefix and the
+# _BPD_COMPLETE completion var). Everything else is prompted.
 DERIVED_IDENTITY_FIELDS: frozenset[str] = frozenset({"app_name_upper"})
 
 # The fields a user actually supplies (interactively or via --config).
@@ -63,8 +63,8 @@ PROMPTED_IDENTITY_FIELDS: tuple[str, ...] = tuple(
 )
 
 BLUEPRINT_ORIGIN_OWNER_REPO: tuple[tuple[str, str], ...] = (
-    ("smorinlabs", "py-launch-blueprint"),
-    ("smorin", "py-launch-blueprint"),
+    ("smorinlabs", "blueprint-press-dryrun"),
+    ("smorin", "blueprint-press-dryrun"),
 )
 
 # The §4.7 instantiation modes. SSOT for Python consumers (conftest.py imports
@@ -210,7 +210,7 @@ class ResetOp:
     """A file reset to a fresh stub on init rather than identity-rewritten.
 
     For files that accumulate the *blueprint's own* history — `CHANGELOG.md`,
-    whose release notes name the blueprint (`plbp`, `smorinlabs`, compare-URLs)
+    whose release notes name the blueprint (`bpd`, `smorinlabs`, compare-URLs)
     — a fork must start its own. So `init` overwrites the file with a stub
     instead of rewriting the identity strings inside it (which would graft a
     fabricated history onto the fork). Reset runs in the main rewrite phase,

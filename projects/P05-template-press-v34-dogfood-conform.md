@@ -26,7 +26,7 @@ generated projects, so this link resolves only in the blueprint itself)
 
 ### Deliverable
 ```bash
-$ cd ~/c/template-press && uv run press verify --target <fresh plbp main clone>
+$ cd ~/c/template-press && uv run press verify --target <fresh bpd main clone>
 $ echo $?
 0
 ```

@@ -35,8 +35,8 @@ def test_repo_marketplace_defaults_astral_plugin_on() -> None:
         (REPO_ROOT / ".agents" / "plugins" / "marketplace.json").read_text()
     )
 
-    assert marketplace["name"] == "py-launch-blueprint"
-    assert marketplace["interface"]["displayName"] == "py-launch-blueprint"
+    assert marketplace["name"] == "blueprint-press-dryrun"
+    assert marketplace["interface"]["displayName"] == "blueprint-press-dryrun"
     assert marketplace["plugins"] == [
         {
             "name": "astral",

@@ -2,7 +2,7 @@
 
 A self-contained skill that guides an AI agent (Claude Code, Codex, or
 anything that reads `AGENTS.md`) through creating a new Python project
-from the `py-launch-blueprint` template.
+from the `blueprint-press-dryrun` template.
 
 Canonical location: `.claude/skills/new-python-project/` (Claude Code's
 project-skill discovery path). `.agents/skills/new-python-project` is a
@@ -39,7 +39,7 @@ is a copy-pasteable bash block.
 The fastest path is to start a fresh Claude Code session, ensure you have
 this repo locally, and say something like:
 
-> "I want to create a new Python project from py-launch-blueprint."
+> "I want to create a new Python project from blueprint-press-dryrun."
 
 …or (per the V6 broader-trigger design):
 
@@ -123,7 +123,7 @@ When the user's request makes the *multi-step nature* obvious:
   Codecov — can you walk me through it?"
 - "Help me start a new project from this template, I haven't done it
   before and I always forget the OIDC step"
-- "What's the right order to do the bootstrap from py-launch-blueprint?"
+- "What's the right order to do the bootstrap from blueprint-press-dryrun?"
 
 Single-line "create a project named X" rarely triggers — Claude treats
 it as a one-shot command.

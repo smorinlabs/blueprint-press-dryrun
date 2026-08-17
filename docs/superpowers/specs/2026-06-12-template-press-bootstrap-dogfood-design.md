@@ -2,7 +2,7 @@
 
 - **Status:** Approved (pending user review of this written spec)
 - **Date:** 2026-06-12
-- **Drives:** issue [#423](https://github.com/smorinlabs/py-launch-blueprint/issues/423)
+- **Drives:** issue [#423](https://github.com/smorinlabs/blueprint-press-dryrun/issues/423)
   (create `smorinlabs/template-press`); feeds phases 1–2 of
   [design doc 0004](../../design/0004-template-press-plan.md)
 - **Rationale inputs:** [research doc 0003](../../research/0003-init-post-init-analysis.md),
@@ -70,7 +70,7 @@ finding PF-1) — added by hand after init, logged.
 2. **Bootstrap via the `new-python-project` skill, invoked explicitly**
    (its auto-trigger recall is known-zero; explicit invocation is itself
    the test): precondition checks → `gh repo create --template
-   smorinlabs/py-launch-blueprint` → clone → `init/init.py` rebrand with
+   smorinlabs/blueprint-press-dryrun` → clone → `init/init.py` rebrand with
    **dry-run preview shown to the user before apply** → verification
    (`just setup`, `just check`, `init-doctor`) → initial commit + push.
 3. **Automated post-init** (`just post-init`):

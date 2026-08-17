@@ -8,7 +8,7 @@
 # ///
 """init — interactive (or file-driven) blueprint setup.
 
-Re-brands py-launch-blueprint into a new project by applying init/manifest.toml
+Re-brands blueprint-press-dryrun into a new project by applying init/manifest.toml
 against user-supplied answers. Strict one-shot: refuses to run if the marker
 exists (unless --force). Requires a clean git tree (unless --allow-dirty).
 Requires a .git directory (§4.7 mode #5: ZIP downloads must `git init` first).

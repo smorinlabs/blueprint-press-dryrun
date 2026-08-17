@@ -1,6 +1,6 @@
 # **CI/CD with GitHub Actions**
 
-This guide explains how to automate testing, linting, and deployment for the Py Launch Blueprint project using GitHub Actions. [Learn more](../tools/github_actions.md).
+This guide explains how to automate testing, linting, and deployment for the Blueprint Press Dryrun project using GitHub Actions. [Learn more](../tools/github_actions.md).
 
 ## **Workflow Overview**
 
@@ -39,8 +39,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: uv sync --all-extras --dev
-      - run: uv run ty check src/py_launch_blueprint/
-      - run: uvx ruff check py_launch_blueprint/
+      - run: uv run ty check src/blueprint_press_dryrun/
+      - run: uvx ruff check blueprint_press_dryrun/
       - run: uvx pytest
 ```
 
@@ -55,7 +55,7 @@ jobs:
 - **Add security scanning**:
   ```yaml
   - name: Run security scan
-    run: uvx bandit -r py_launch_blueprint/
+    run: uvx bandit -r blueprint_press_dryrun/
   ```
 - **Cache dependencies**:
   ```yaml

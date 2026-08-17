@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Prove template-press v3.4/P07 end-to-end against py-launch-blueprint — author the blueprint's `press/` config from scratch, iterate `press verify` to a declarations-only exit 0, rebrand a local instance, and publish it to a throwaway GitHub repo — logging every finding as a PROBLEM-NN with a disposition.
+**Goal:** Prove template-press v3.4/P07 end-to-end against blueprint-press-dryrun — author the blueprint's `press/` config from scratch, iterate `press verify` to a declarations-only exit 0, rebrand a local instance, and publish it to a throwaway GitHub repo — logging every finding as a PROBLEM-NN with a disposition.
 
-**Architecture:** Operational dogfood campaign, not a code build. Config authoring + verify runs happen in the blueprint worktree `~/c/py-launch-blueprint-press-conform` (branch `feat/press-conform`); engine bugs, if found, are fixed in separate template-press worktrees per the triage protocol (Task 7). Exit codes are the assertions: `press` verbs exit 0/1/2 by contract, so each run is a test.
+**Architecture:** Operational dogfood campaign, not a code build. Config authoring + verify runs happen in the blueprint worktree `~/c/blueprint-press-dryrun-press-conform` (branch `feat/press-conform`); engine bugs, if found, are fixed in separate template-press worktrees per the triage protocol (Task 7). Exit codes are the assertions: `press` verbs exit 0/1/2 by contract, so each run is a test.
 
 **Tech Stack:** template-press `press` CLI (run as `uv run press …` from `~/c/template-press`), TOML config, sh/PowerShell regen scripts, `gh` REST, lefthook-gated commits.
 
@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - **Press-under-test pin (D-v4-1):** template-press `main` @ `bd52085`. Run every press command as `cd ~/c/template-press && uv run press …`. If main moves, re-pin explicitly in the dogfood log.
-- **Target:** the worktree `/Users/stevemorin/c/py-launch-blueprint-press-conform` (never the live checkout `~/c/py-launch-blueprint`).
+- **Target:** the worktree `/Users/stevemorin/c/blueprint-press-dryrun-press-conform` (never the live checkout `~/c/blueprint-press-dryrun`).
 - **Green via declarations, never ignores (D-v4-5):** an engine capability gap is fixed in template-press or deferred with a reasoned `[[verify.ignore]]` — never dodged by rewording blueprint content. Target: zero ignores.
 - **Findings (D-v4-6):** every unexpected outcome becomes a `PROBLEM-NN` entry (severity · what happened · workaround · root cause · disposition) in `docs/research/0004-template-press-dogfood-log.md` "Run 4", numbering starts at **PROBLEM-21**.
 - **Commits:** Conventional Commits, lowercase subject (commitlint hook enforces; `bun install --frozen-lockfile` already run in this worktree so hooks fire). Merge PRs with `--merge` (squash is disabled repo-wide).
@@ -71,7 +71,7 @@ throwaway repo. Spec: docs/superpowers/specs/2026-08-16-template-press-v34-dogfo
 
 ### Deliverable
 ```bash
-$ cd ~/c/template-press && uv run press verify --target <fresh plbp main clone>
+$ cd ~/c/template-press && uv run press verify --target <fresh bpd main clone>
 $ echo $?
 0
 ```
@@ -88,7 +88,7 @@ $ echo $?
 - [ ] **Step 3: Commit**
 
 ```bash
-cd /Users/stevemorin/c/py-launch-blueprint-press-conform
+cd /Users/stevemorin/c/blueprint-press-dryrun-press-conform
 git add PROJECTS.md projects/P05-template-press-v34-dogfood-conform.md
 git commit -m "docs(projects): register p05 template-press v3.4 dogfood and conform"
 ```
@@ -148,11 +148,11 @@ git commit -m "docs(research): open dogfood log run 4 with v3.4 expectations"
 - [ ] **Step 1: Cross-check identity values against the repo**
 
 ```bash
-cd /Users/stevemorin/c/py-launch-blueprint-press-conform
+cd /Users/stevemorin/c/blueprint-press-dryrun-press-conform
 grep -E '^name|^authors' pyproject.toml
 grep -E 'package|app|owner|author|email' init/manifest.toml | head -12
 ```
-Expected: package `py_launch_blueprint`, repo `py-launch-blueprint`, app `plbp`, owner `smorinlabs`, author `Steve Morin`, email `steve.morin@gmail.com`. If any value differs, use the repo's value and log a PROBLEM entry.
+Expected: package `blueprint_press_dryrun`, repo `blueprint-press-dryrun`, app `bpd`, owner `smorinlabs`, author `Steve Morin`, email `steve.morin@gmail.com`. If any value differs, use the repo's value and log a PROBLEM entry.
 
 - [ ] **Step 2: Write the file**
 
@@ -160,27 +160,27 @@ Create `press/press-source.toml`:
 
 ```toml
 [identity]
-package_name = "py_launch_blueprint"
-repo_name    = "py-launch-blueprint"
-app_name     = "plbp"
+package_name = "blueprint_press_dryrun"
+repo_name    = "blueprint-press-dryrun"
+app_name     = "bpd"
 author       = "Steve Morin"
 email        = "steve.morin@gmail.com"
 owner        = "smorinlabs"
-display_name = "Py Launch Blueprint"
+display_name = "Blueprint Press Dryrun"
 ```
 
 - [ ] **Step 3: Run verify to prove the config parses (failure expected, but not "missing config")**
 
 ```bash
 cd /Users/stevemorin/c/template-press
-uv run press verify --target /Users/stevemorin/c/py-launch-blueprint-press-conform --json; echo "exit=$?"
+uv run press verify --target /Users/stevemorin/c/blueprint-press-dryrun-press-conform --json; echo "exit=$?"
 ```
 Expected: **not** the exit-2 "missing source-config" refusal Run 3 started from. Exit 1 (leaks — no rules yet) or exit 2 for a *different* stated reason (e.g. excluded-file contract) are both acceptable here; record the exact exit + reason in the Run 4 steps table. Commit the log row together with Step 4.
 
 - [ ] **Step 4: Commit**
 
 ```bash
-cd /Users/stevemorin/c/py-launch-blueprint-press-conform
+cd /Users/stevemorin/c/blueprint-press-dryrun-press-conform
 git add press/press-source.toml docs/research/0004-template-press-dogfood-log.md
 git commit -m "feat(press): declare source identity for external press"
 ```
@@ -233,7 +233,7 @@ exit $LASTEXITCODE
 - [ ] **Step 3: Verify syntax + executability**
 
 ```bash
-cd /Users/stevemorin/c/py-launch-blueprint-press-conform
+cd /Users/stevemorin/c/blueprint-press-dryrun-press-conform
 chmod +x scripts/regen-bun-lock.sh
 sh -n scripts/regen-bun-lock.sh && echo "sh OK"
 ```
@@ -267,7 +267,7 @@ Create `press/press-rules.toml`. This is the from-scratch first draft encoding t
 # dogfood Run 3 (G3/G4/G5) are closed by declaration, not by ignores.
 
 [rules]
-# G3: plbp appears in glued forms (_plbp_owned, plbp-web) and PLBP in
+# G3: bpd appears in glued forms (_bpd_owned, bpd-web) and BPD in
 # uppercase glued forms — the token is word-disjoint in this repo.
 substring_rewrite_fields = ["app_name", "app_name_upper"]
 
@@ -294,21 +294,21 @@ stub = "# Changelog\n"
 
 Notes for the implementer:
 - `display_name` needs no `[rules]` entry — declaring it in `[identity]` (Task 3) turns the feature on; `display_forms` defaults to all three forms (spaced/Pascal/camel).
-- G5 (doc filenames `docs/adr/0001-app-short-name-plbp.md`, `docs/design/0001-plbp-cli-conventions.md`) should be covered by substring mode, which applies to path components too. If verify still flags them, add a `[[replace]]` rule (keys: `pattern` with `{app_name}` placeholders, required `reason`, optional `files` globs, `paths = true`) — do NOT add an ignore.
+- G5 (doc filenames `docs/adr/0001-app-short-name-bpd.md`, `docs/design/0001-bpd-cli-conventions.md`) should be covered by substring mode, which applies to path components too. If verify still flags them, add a `[[replace]]` rule (keys: `pattern` with `{app_name}` placeholders, required `reason`, optional `files` globs, `paths = true`) — do NOT add an ignore.
 - If the excluded-file contract gate (exit 2) names other tracked excluded files (candidates: `dist/`, `coverage.xml`, `llms.txt`), each needs a `[[regenerate]]`, `[[reset]]`, or an explicit engine-supported declaration — record each as a PROBLEM entry first, then fix.
 
 - [ ] **Step 2: Run check-tools (config-parse + tool-resolution test)**
 
 ```bash
 cd /Users/stevemorin/c/template-press
-uv run press check-tools --target /Users/stevemorin/c/py-launch-blueprint-press-conform; echo "exit=$?"
+uv run press check-tools --target /Users/stevemorin/c/blueprint-press-dryrun-press-conform; echo "exit=$?"
 ```
 Expected: exit 0, reporting `uv`, `scripts/regen-bun-lock.sh` (and the win32 entry as not-applicable on darwin). Exit 2 = config error: read the message, fix the TOML, re-run. Log the run in Run 4.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-cd /Users/stevemorin/c/py-launch-blueprint-press-conform
+cd /Users/stevemorin/c/blueprint-press-dryrun-press-conform
 git add press/press-rules.toml docs/research/0004-template-press-dogfood-log.md
 git commit -m "feat(press): declare rules — substring mode, regenerate, reset"
 ```
@@ -328,7 +328,7 @@ git commit -m "feat(press): declare rules — substring mode, regenerate, reset"
 
 ```bash
 cd /Users/stevemorin/c/template-press
-uv run press verify --target /Users/stevemorin/c/py-launch-blueprint-press-conform --json \
+uv run press verify --target /Users/stevemorin/c/blueprint-press-dryrun-press-conform --json \
   > /private/tmp/claude-501/-Users-stevemorin-c/f9c90818-964e-465b-a70c-b5cac723b07b/scratchpad/verify-run1.json; echo "exit=$?"
 ```
 Expected per spec §2: exit 0. Exit 1 → findings JSON lists surviving (file, field, value, line) tuples. Exit 2 → read the stated reason (likely the excluded-file contract).
@@ -343,7 +343,7 @@ Record each class as `PROBLEM-21`, `PROBLEM-22`, … in Run 4 with severity/root
 - [ ] **Step 3: Commit the log update**
 
 ```bash
-cd /Users/stevemorin/c/py-launch-blueprint-press-conform
+cd /Users/stevemorin/c/blueprint-press-dryrun-press-conform
 git add docs/research/0004-template-press-dogfood-log.md
 git commit -m "docs(research): record run 4 first verify results"
 ```
@@ -392,7 +392,7 @@ This is a loop, not a straight line. Per round:
 
 - [ ] **Step 1: Confirm with the user** that PR #505 (`fix(guard): accept a press receipt as an initialized marker`) should merge now. It is the user's own open PR; do not merge unprompted.
 - [ ] **Step 2: Drive it to merge** with the `pr-merge-flow` skill (this repo's merge guard requires every review thread resolved; merge with `--merge`).
-- [ ] **Step 3: Verify** `gh api repos/smorinlabs/py-launch-blueprint/pulls/505 --jq .merged` → `true`.
+- [ ] **Step 3: Verify** `gh api repos/smorinlabs/blueprint-press-dryrun/pulls/505 --jq .merged` → `true`.
 
 ---
 
@@ -408,7 +408,7 @@ This is a loop, not a straight line. Per round:
 - [ ] **Step 1: Satisfy init-system integrity.** The new `press/` files and regen scripts contain identity values, so the legacy drift guard will flag them. Add entries for `press/press-source.toml`, `press/press-rules.toml` (and the scripts if flagged) to the matching `[[replace]]` blocks in `init/manifest.toml`, then prove it:
 
 ```bash
-cd /Users/stevemorin/c/py-launch-blueprint-press-conform
+cd /Users/stevemorin/c/blueprint-press-dryrun-press-conform
 uv run --script init/ci/check_manifest_drift.py
 uv run pytest init/tests/ --override-ini="addopts=" -q
 ```
@@ -427,7 +427,7 @@ Expected: pass. Commit any fixes (`fix(press): …`).
 git add init/manifest.toml
 git commit -m "chore(init): track press config files in the drift manifest"
 git push -u origin feat/press-conform
-gh pr create --repo smorinlabs/py-launch-blueprint \
+gh pr create --repo smorinlabs/blueprint-press-dryrun \
   --title "feat(press): conform to template-press v3.4 — source identity, declared rules, run 4 log" \
   --body "Implements docs/superpowers/specs/2026-08-16-template-press-v34-dogfood-design.md Phase 1. press verify (template-press main @ <final pin>) exits 0 against this branch with zero ignores. Findings: see dogfood log Run 4 (PROBLEM-21+)."
 ```
@@ -445,10 +445,10 @@ gh pr create --repo smorinlabs/py-launch-blueprint \
 
 ```bash
 cd /private/tmp/claude-501/-Users-stevemorin-c/f9c90818-964e-465b-a70c-b5cac723b07b/scratchpad
-git clone --depth 1 https://github.com/smorinlabs/py-launch-blueprint.git plbp-main-gate
+git clone --depth 1 https://github.com/smorinlabs/blueprint-press-dryrun.git bpd-main-gate
 cd /Users/stevemorin/c/template-press
-uv run press verify --target /private/tmp/claude-501/-Users-stevemorin-c/f9c90818-964e-465b-a70c-b5cac723b07b/scratchpad/plbp-main-gate; echo "verify=$?"
-uv run press check-tools --target /private/tmp/claude-501/-Users-stevemorin-c/f9c90818-964e-465b-a70c-b5cac723b07b/scratchpad/plbp-main-gate; echo "tools=$?"
+uv run press verify --target /private/tmp/claude-501/-Users-stevemorin-c/f9c90818-964e-465b-a70c-b5cac723b07b/scratchpad/bpd-main-gate; echo "verify=$?"
+uv run press check-tools --target /private/tmp/claude-501/-Users-stevemorin-c/f9c90818-964e-465b-a70c-b5cac723b07b/scratchpad/bpd-main-gate; echo "tools=$?"
 ```
 Expected: both 0. Any other result → new PROBLEM entry, back to Task 7 (new round).
 
@@ -467,7 +467,7 @@ Scratch base: `SCRATCH=/private/tmp/claude-501/-Users-stevemorin-c/f9c90818-964e
 - [ ] **Step 1: Clone + answers**
 
 ```bash
-git clone https://github.com/smorinlabs/py-launch-blueprint.git "$SCRATCH/blueprint-press-dryrun"
+git clone https://github.com/smorinlabs/blueprint-press-dryrun.git "$SCRATCH/blueprint-press-dryrun"
 cat > "$SCRATCH/press-answers.toml" <<'EOF'
 [answers]
 package_name = "blueprint_press_dryrun"
@@ -487,8 +487,8 @@ EOF
 
 ```bash
 cd "$SCRATCH/blueprint-press-dryrun"
-grep -rn --exclude-dir=.git -e py_launch_blueprint -e py-launch-blueprint -e "Py Launch Blueprint" -e PyLaunchBlueprint . | grep -v press-receipt || echo "CLEAN"
-grep -rn --exclude-dir=.git -we plbp -we PLBP . | grep -v press-receipt || echo "CLEAN(app)"
+grep -rn --exclude-dir=.git -e blueprint_press_dryrun -e blueprint-press-dryrun -e "Blueprint Press Dryrun" -e BlueprintPressDryrun . | grep -v press-receipt || echo "CLEAN"
+grep -rn --exclude-dir=.git -we bpd -we BPD . | grep -v press-receipt || echo "CLEAN(app)"
 head -3 CHANGELOG.md   # expect the stub
 grep -c blueprint-press-dryrun bun.lock  # expect >=1 (regenerated workspace name)
 ```
@@ -533,7 +533,7 @@ Expected: push succeeds — the pre-push guard accepts the press receipt (Task 9
 - [ ] **Step 2: Project state.** Flip P05 tasks/tests in `projects/P05-…md` and the trunk row status; final log commit + PR + merge.
 - [ ] **Step 3: Cleanup with the user** (per-item consent):
   - campaign worktrees removed + pruned (only after their PRs merged);
-  - stale July artifacts: `py-launch-blueprint-p1verify` worktree (uncommitted draft — superseded), `py-launch-blueprint-guard` (branch merged via Task 9?);
+  - stale July artifacts: `blueprint-press-dryrun-p1verify` worktree (uncommitted draft — superseded), `blueprint-press-dryrun-guard` (branch merged via Task 9?);
   - the user's live blueprint checkout divergence (ahead 1/behind 2) — surface, user reconciles;
   - throwaway repo: keep as evidence or delete;
   - template-press untracked handoff doc — surface only.

@@ -3,7 +3,7 @@
 Snapshot taken before the audit, to anchor phase 2 (Fable + Codex).
 
 ## Tooling state
-- **ty 0.0.39** — `uv run --extra web ty check src/py_launch_blueprint/` →
+- **ty 0.0.39** — `uv run --extra web ty check src/blueprint_press_dryrun/` →
   **"All checks passed!"** on **defaults** (no `[tool.ty]` section in
   `pyproject.toml`).
 - **Pyright `strict`** configured (`[tool.pyright]`) — IDE only, not gated in CI.

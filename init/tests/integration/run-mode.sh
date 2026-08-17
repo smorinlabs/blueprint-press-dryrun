@@ -26,7 +26,7 @@ esac
 BLUEPRINT_ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
 ANSWERS_SRC="$BLUEPRINT_ROOT/init/tests/integration/answers.toml"
 
-FIXTURE="$(mktemp -d -t plbp-mode-XXXXXX)/proj"
+FIXTURE="$(mktemp -d -t bpd-mode-XXXXXX)/proj"
 mkdir -p "$FIXTURE"
 
 # Forward git identity so commit ops work in CI runners without global config.
@@ -86,7 +86,7 @@ case "$MODE" in
                 ;;
             fork)
                 # Same repo NAME, different OWNER — the §4.7 mode #4 regression case.
-                git remote add origin git@github.com:alice/py-launch-blueprint.git
+                git remote add origin git@github.com:alice/blueprint-press-dryrun.git
                 ;;
         esac
         pass "git state ready ($(git remote get-url origin 2>/dev/null || echo 'no origin'))"

@@ -3,7 +3,7 @@
 - **Spec:** ../superpowers/specs/2026-06-12-template-press-bootstrap-dogfood-design.md
   (superseded for the build loop by the operative v2 design,
   ../superpowers/specs/2026-06-13-template-press-bootstrap-dogfood-v2-design.md)
-- **Issue:** https://github.com/smorinlabs/py-launch-blueprint/issues/423
+- **Issue:** https://github.com/smorinlabs/blueprint-press-dryrun/issues/423
 - **Started:** 2026-06-13T01:31:39Z
 
 Problems use `PROBLEM-NN` (global numbering across runs): severity
@@ -19,14 +19,14 @@ Problems use `PROBLEM-NN` (global numbering across runs): severity
 | 2026-06-13T01:34:38Z | 0 (preconditions) | `command -v gh && gh auth status && command -v uv && ls ~/c/blueprint-dryrun 2>/dev/null` | PASS: gh present; gh auth OK (user: smorin); uv present; blueprint-dryrun absent; .blueprint-initialized absent |
 | 2026-06-13T01:34:38Z | 0 (observation) | runbook step 0 (template-use confirmation) | skipped: pre-approved by spec/plan; runbook has no pre-approved path — candidate amendment for agent-driven flows |
 | 2026-06-13T01:46:09Z | 3 (create repo, flag check) | `gh repo create --help` | FAIL (runbook bug): no `--directory` flag exists; only `-c, --clone` (clones to cwd). See PROBLEM-02 |
-| 2026-06-13T01:46:30Z | 3 (create repo) | from `~/c/`: `gh repo create smorinlabs/blueprint-dryrun --template smorinlabs/py-launch-blueprint --public --clone` | BLOCKED: denied by Claude Code permission classifier (public repo creation via continuation handoff lacks direct user directive). Repo NOT created; awaiting user to run/approve. See PROBLEM-03 |
+| 2026-06-13T01:46:30Z | 3 (create repo) | from `~/c/`: `gh repo create smorinlabs/blueprint-dryrun --template smorinlabs/blueprint-press-dryrun --public --clone` | BLOCKED: denied by Claude Code permission classifier (public repo creation via continuation handoff lacks direct user directive). Repo NOT created; awaiting user to run/approve. See PROBLEM-03 |
 | 2026-06-13T01:50:30Z | 3 (create repo, resolved) | same command, run by the controller session (user authorized this repo first-hand earlier in session) | PASS: repo created + cloned to ~/c/blueprint-dryrun; origin correct; single commit 09768ae "Initial commit"; init/init.py present |
 | 2026-06-13T01:49:41Z | 4 (answers.toml) | wrote `~/c/blueprint-dryrun/answers.toml` (`[answers]`: package=blueprint_dryrun, repo=blueprint-dryrun, app=bpd, author=Steve Morin, email=steve.morin@gmail.com, owner=smorinlabs) | PASS: file created; flags verified via `uv run init/init.py --help` (`--config`/`--dry-run`/`--yes` all exist as documented) |
 | 2026-06-13T01:49:41Z | 4 (dry-run, 1st attempt) | `uv run init/init.py --config answers.toml --dry-run --yes` | FAIL (precondition): "git working tree is dirty" — the untracked answers.toml itself trips the clean-tree gate. See PROBLEM-04 |
 | 2026-06-13T01:49:41Z | 4 (dry-run, retry) | same + `--allow-dirty` | PASS: 289-line plan (10 removes, 53 same-value author/email replaces incl., 7 renames, 1 CHANGELOG reset). `Summary: 10 removes, 266 replaces, 7 renames.` No writes (`--dry-run: no changes written`) |
 | 2026-06-13T01:49:41Z | 4 (PF-2 observation) | inspect plan for same-value author/email entries | author "Steve Morin" (51 entries) and email "steve.morin@gmail.com" (2 entries) EQUAL blueprint identity values; listed as normal `[replace]` lines (`'Steve Morin'→'Steve Morin'`) and counted in the 266 total — not skipped, not flagged as no-ops |
 | 2026-06-13T01:52:00Z | 5 (apply rebrand) | `uv run init/init.py --config answers.toml --yes --allow-dirty` | PASS: "Applied: 10 removed, 192 replaced, 7 renamed, 1 reset, 74 skipped"; marker written. NOTE plan/apply asymmetry: plan says 266 replaces, apply skips 74 (incl. same-value no-ops) without the plan marking them |
-| 2026-06-13T01:52:30Z | 5 (verify) | grep leftover identity + `bun.lock` inspection | bun.lock retained `py-launch-blueprint-tooling` workspace name despite init's "regenerating lockfiles" message. See PROBLEM-05. Fixed via `rm bun.lock && bun install` (plain `bun install` insufficient) |
+| 2026-06-13T01:52:30Z | 5 (verify) | grep leftover identity + `bun.lock` inspection | bun.lock retained `blueprint-press-dryrun-tooling` workspace name despite init's "regenerating lockfiles" message. See PROBLEM-05. Fixed via `rm bun.lock && bun install` (plain `bun install` insufficient) |
 | 2026-06-13T01:53:00Z | 5 (init-doctor) | `uv run init/init_doctor.py` | ERROR no-identity-leak: 76 leftovers across 3 values — author/email/owner are SAME-VALUE as blueprint identity (author x54, email x3, owner x54 present, skills-template refs x14); doctor cannot distinguish correct-because-identical from leftover. WILL ALSO HIT RUN 2. See PROBLEM-06. Also warn: copyright-year mismatch (PROBLEM-07) |
 | 2026-06-13T01:53:56Z | 6 (commit+push) | `git add -A && git commit -m "chore: initialize …" && git push -u origin main` | PASS (ae287e8). Hooks not installed at this point per runbook order — initial commit bypasses commitlint/gitleaks (observation) |
 | 2026-06-13T01:55:00Z | 7 (just setup, 1st) | `make check && just setup` | make check PASS; `just setup` FAIL: mise refuses untrusted mise.toml in fresh clone. See PROBLEM-08 |
@@ -72,7 +72,7 @@ Problems use `PROBLEM-NN` (global numbering across runs): severity
   outside the repo or document `--allow-dirty` for the headless flow).
 - **PROBLEM-05** — severity: med — `init.py` prints "regenerating
   lockfiles and generated artifacts…" but `bun.lock` keeps the
-  `py-launch-blueprint-tooling` workspace name. Plain `bun install` does
+  `blueprint-press-dryrun-tooling` workspace name. Plain `bun install` does
   NOT rewrite it (lockfile considered up to date); only `rm bun.lock &&
   bun install` regenerates it. Root cause: init's lock regeneration
   doesn't cover the bun workspace name, or runs `bun install` without
@@ -157,7 +157,7 @@ Problems use `PROBLEM-NN` (global numbering across runs): severity
 
 ## Triage / blueprint fixes applied (between Run 1 and build #1)
 
-PR [#428](https://github.com/smorinlabs/py-launch-blueprint/pull/428),
+PR [#428](https://github.com/smorinlabs/blueprint-press-dryrun/pull/428),
 commit `00e59f5`. Empirically confirmed: after the marker-gate change, the
 blueprint's OWN pre-push hooks all still run and PASS (guard-wiring,
 path-filter, manifest-drift, bandit, init-tests) — verified on the real
@@ -225,7 +225,7 @@ Repo `smorinlabs/template-press` created via REST template-generate
 | Fix | Run 1 (old template) | Build #1 (fixed template) |
 |---|---|---|
 | PROBLEM-11 marker-gate | pre-push FAILED; needed `--no-verify` | **push succeeds WITH hooks**; init checks no-op in 0.01–0.03s each |
-| PROBLEM-05 bun.lock | leaked `py-launch-blueprint-tooling` | **clean** — `grep -c py-launch-blueprint bun.lock` = 0 |
+| PROBLEM-05 bun.lock | leaked `blueprint-press-dryrun-tooling` | **clean** — `grep -c blueprint-press-dryrun bun.lock` = 0 |
 | PROBLEM-08 mise trust | `just setup` failed (untrusted mise.toml) | **`just setup` first try** (mise trust ran) |
 | PROBLEM-04 --allow-dirty | dry-run failed on untracked answers.toml | runbook documents `--allow-dirty`; clean |
 | PROBLEM-02 --directory | nonexistent flag | runbook fixed; used REST generate here |
@@ -284,27 +284,27 @@ converges here: build #1 IS the kept `smorinlabs/template-press`. A
 delete+recreate would be churn for no gain (and the v2 plan's rebuild
 existed only to prove fixes — now proven). See design v3.
 
-## Run 3 — external `press verify` (v3.2.0) vs py-launch-blueprint @ 1649334 (2026-07-23)
+## Run 3 — external `press verify` (v3.2.0) vs blueprint-press-dryrun @ 1649334 (2026-07-23)
 
 **Context.** dogfood-v3 / #423 engine extraction. Ran the **released** external
 `press` engine (template-press `v3.2.0`, `origin/main` `e9b188c`) against
-py-launch-blueprint to test the conform + drop-`init/` acceptance gate. The
+blueprint-press-dryrun to test the conform + drop-`init/` acceptance gate. The
 full root-cause register — code refs, proposed fixes, acceptance tests — lives
-in **template-press `docs/research/0004-py-launch-blueprint-conformance-gaps.md`**
-(branch `docs/plbp-conformance-gaps`); this entry is the consumer-side pointer.
+in **template-press `docs/research/0004-blueprint-press-dryrun-conformance-gaps.md`**
+(branch `docs/bpd-conformance-gaps`); this entry is the consumer-side pointer.
 
 **Setup.** Wrote `press/press-source.toml` (`[identity]`: package
-`py_launch_blueprint`, repo `py-launch-blueprint`, app `plbp`, author Steve
+`blueprint_press_dryrun`, repo `blueprint-press-dryrun`, app `bpd`, author Steve
 Morin, email steve.morin@gmail.com, owner smorinlabs). Accepted by v3.2.0 (no
 exit 2). Identity cross-checked against `pyproject.toml` + `init/manifest.toml`.
 
-**Result.** `uv run press verify --target <plbp> --json` → **exit 1**, **784
-surviving findings across 39 files**. Not "plbp is broken" — five capability
-gaps where v3.2.0's `press` engine is *less capable at rebranding plbp than the
+**Result.** `uv run press verify --target <bpd> --json` → **exit 1**, **784
+surviving findings across 39 files**. Not "bpd is broken" — five capability
+gaps where v3.2.0's `press` engine is *less capable at rebranding bpd than the
 old `init/` engine*, plus one architectural interaction. 86% of findings are a
 single file (`CHANGELOG.md`).
 
-**Decision (dogfood-v3).** **PAUSE** the plbp conform. Do **not** delete `init/`
+**Decision (dogfood-v3).** **PAUSE** the bpd conform. Do **not** delete `init/`
 on a verify-green-via-ignores signal — that would ship a rebrand regression.
 **Enhance `press` to `init/` parity first**, per the register. Key insight:
 *`verify` green (via ignores) ≠ `press rebrand` at `init/` parity*, because the
@@ -319,25 +319,25 @@ conform can use unpinned `uvx template-press` (≥3.2.0).
   press `DEFAULT_RULES.exclude_files` (not rewritten) but is neither reset nor
   scan-excluded, so every token survives the scan. `init/` had a `[[reset]]`
   stub. Disposition: template-press — add a reset rule kind (register **G1**).
-- **PROBLEM-17** — low — `bun.lock` retains `py-launch-blueprint-tooling`
+- **PROBLEM-17** — low — `bun.lock` retains `blueprint-press-dryrun-tooling`
   (2 findings). **Recurrence of Run-1 PROBLEM-05, now root-caused:** `bun.lock`
   is in `exclude_files` but not in `regenerate` (only `uv.lock` is), so stale
   identity survives. Disposition: template-press — regenerate `bun.lock`
   (register **G2**).
-- **PROBLEM-18** — med — app_name boundary variants survive: `_plbp_owned`
-  (tests), `plbp-web` (Dockerfile/Justfile) (16 findings). Root cause: the
+- **PROBLEM-18** — med — app_name boundary variants survive: `_bpd_owned`
+  (tests), `bpd-web` (Dockerfile/Justfile) (16 findings). Root cause: the
   rewriter deliberately protects a leading `_`/`-` and trailing `-`; the verify
   scanner does not → asymmetry. `init/` used app_name text-mode substring
   replace. Disposition: template-press — opt-in substring rewrite mode
   (register **G3**).
-- **PROBLEM-19** — med — humanized display name "Py Launch Blueprint" survives
+- **PROBLEM-19** — med — humanized display name "Blueprint Press Dryrun" survives
   across 24 docs (74 findings). Root cause: verify's space/case-variant matcher
   flags it; the rewriter can't (no display-name field). **Pre-existing** —
   `init/` never handled it either; verify is just the first tool to surface it.
   Disposition: **design decision** — add a `display_name` identity field, or
   accept the residual with a first-class ignore (register **G4**).
-- **PROBLEM-20** — low — doc filenames `0001-app-short-name-plbp.md`,
-  `0001-plbp-cli-conventions.md` (+ content refs) carry the app token; renamed
+- **PROBLEM-20** — low — doc filenames `0001-app-short-name-bpd.md`,
+  `0001-bpd-cli-conventions.md` (+ content refs) carry the app token; renamed
   by neither engine's defaults (2 + 4 findings). Disposition: template-press —
   filename rename rule, or accept 2 ignores (register **G5**).
 - **(architectural)** any `exclude_files` entry containing identity tokens that

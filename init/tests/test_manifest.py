@@ -101,8 +101,8 @@ def test_app_name_identity_and_derived_upper() -> None:
         owner="acmecorp",
     )
     rep = _replacement_map(answers)
-    assert rep["plbp"] == "widget"
-    assert rep["PLBP"] == "WIDGET"  # derived, never prompted
+    assert rep["bpd"] == "widget"
+    assert rep["BPD"] == "WIDGET"  # derived, never prompted
 
 
 def test_app_name_rejects_hyphens() -> None:

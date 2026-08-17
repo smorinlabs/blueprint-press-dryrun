@@ -1,7 +1,7 @@
 # `init/` — blueprint self-setup system
 
 Self-contained tooling that guides a developer through rebranding this repo
-after it has been instantiated from the `py-launch-blueprint` template. Lives
+after it has been instantiated from the `blueprint-press-dryrun` template. Lives
 entirely under `init/` so the system can be removed in one step once it has
 done its job.
 

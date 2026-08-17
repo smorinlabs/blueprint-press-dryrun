@@ -114,13 +114,13 @@ class TestMode4Fork:
     def test_guard_does_not_skip_on_name_only_match(self, proj):
         """§4.7 regression: skip must compare OWNER+NAME, not name alone.
 
-        Without this guard, a fork at alice/py-launch-blueprint would silently
+        Without this guard, a fork at alice/blueprint-press-dryrun would silently
         skip migration and ship as the blueprint to alice's users.
         """
         r = run_guard(proj, "warn")
         assert r.returncode == 0
         assert BANNER in r.stderr, (
-            "guard must NOT skip a fork: alice/py-launch-blueprint shares the "
+            "guard must NOT skip a fork: alice/blueprint-press-dryrun shares the "
             "repo name with the blueprint but the owner differs (§4.7 mode #4)."
         )
 
@@ -237,7 +237,7 @@ class TestPressReceiptSilences:
         press_dir = proj / "press"
         press_dir.mkdir(exist_ok=True)
         (press_dir / "press-source.toml").write_text(
-            '[identity]\napp_name = "plbp"\n',
+            '[identity]\napp_name = "bpd"\n',
             encoding="utf-8",
         )
         warn = run_guard(proj, "warn")

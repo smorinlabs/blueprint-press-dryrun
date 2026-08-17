@@ -1,6 +1,6 @@
 # Project Philosophy
 
-Py Launch Blueprint is built on core principles to ensure a robust, scalable, and maintainable Python project template.
+Blueprint Press Dryrun is built on core principles to ensure a robust, scalable, and maintainable Python project template.
 
 ## Philosophy
 - **Heavily Documented**: Every detail is explained, making it easy to understand, even for folks new to the project, tools, or new to Python.

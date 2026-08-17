@@ -13,8 +13,8 @@ import json
 import sys
 from pathlib import Path
 
-from py_launch_blueprint.web.app import create_app
-from py_launch_blueprint.web.settings import WebSettings
+from blueprint_press_dryrun.web.app import create_app
+from blueprint_press_dryrun.web.settings import WebSettings
 
 DEFAULT_OUT = "docs/api/openapi.json"
 

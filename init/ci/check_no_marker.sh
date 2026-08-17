@@ -4,7 +4,7 @@
 # This guards a category of foot-gun: someone runs `just init` on the blueprint
 # itself and commits the resulting marker (and rewritten files), which would
 # corrupt the template. The check is SCOPED — it only fires when the repo
-# being checked is itself named `py-launch-blueprint` (in $GITHUB_REPOSITORY).
+# being checked is itself named `blueprint-press-dryrun` (in $GITHUB_REPOSITORY).
 # That way the same workflow can ship downstream without firing falsely.
 #
 # Layered defense: `init --prune` also deletes the workflow file itself.
@@ -25,7 +25,7 @@ receipt_path="${RECEIPT_PATH:-press/press-receipt.toml}"
 
 # Outside the blueprint repo this check is a no-op.
 case "$scope" in
-    */py-launch-blueprint) ;;
+    */blueprint-press-dryrun) ;;
     "")
         # Local invocation with no GITHUB_REPOSITORY — fall back to enforcing.
         ;;

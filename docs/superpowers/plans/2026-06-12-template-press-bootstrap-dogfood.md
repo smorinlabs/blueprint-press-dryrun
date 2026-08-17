@@ -24,7 +24,7 @@ current run's Steps table in
 `docs/research/0004-template-press-dogfood-log.md` (blueprint repo). Any
 unexpected behavior becomes the next `PROBLEM-NN` entry **before**
 continuing. Timestamps: `date -u +%Y-%m-%dT%H:%M:%SZ`. Working directory
-is the blueprint repo (`/Users/stevemorin/c/py-launch-blueprint`) unless a
+is the blueprint repo (`/Users/stevemorin/c/blueprint-press-dryrun`) unless a
 step says otherwise; dry-run repo steps run in `~/c/blueprint-dryrun`.
 
 ---
@@ -50,7 +50,7 @@ are pre-decided in Task 4 / the spec. Same applies to Task 15 for run 2.
 # Template-Press Dogfood — Live Log
 
 - **Spec:** ../superpowers/specs/2026-06-12-template-press-bootstrap-dogfood-design.md
-- **Issue:** https://github.com/smorinlabs/py-launch-blueprint/issues/423
+- **Issue:** https://github.com/smorinlabs/blueprint-press-dryrun/issues/423
 - **Started:** <UTC timestamp>
 
 Problems use `PROBLEM-NN` (global numbering across runs): severity
@@ -111,7 +111,7 @@ construction: the blueprint has no `init/.blueprint-initialized`.)
 
 ```bash
 gh repo create "smorinlabs/blueprint-dryrun" \
-    --template smorinlabs/py-launch-blueprint \
+    --template smorinlabs/blueprint-press-dryrun \
     --public \
     --clone
 mv blueprint-dryrun ~/c/blueprint-dryrun 2>/dev/null || true
@@ -176,7 +176,7 @@ PROBLEM, recover with `git checkout . && git clean -fd`, surface to user.
 
 ```bash
 cd ~/c/blueprint-dryrun && ls init/.blueprint-initialized \
-  && grep -rn "py_launch_blueprint\|py-launch-blueprint\|plbp" --include="*.py" --include="*.toml" -l . | head
+  && grep -rn "blueprint_press_dryrun\|blueprint-press-dryrun\|bpd" --include="*.py" --include="*.toml" -l . | head
 ```
 
 Expected: marker present; grep finds no hits outside `init/` machinery.
@@ -191,7 +191,7 @@ Expected: marker present; grep finds no hits outside `init/` machinery.
 
 ```bash
 cd ~/c/blueprint-dryrun && git add -A \
-  && git commit -m "chore: initialize blueprint-dryrun from py-launch-blueprint" \
+  && git commit -m "chore: initialize blueprint-dryrun from blueprint-press-dryrun" \
   && git push -u origin main
 ```
 
@@ -420,7 +420,7 @@ context list (Task 10 step 5) and log.
 - [ ] **Step 2: Commit the log to the blueprint**
 
 ```bash
-cd /Users/stevemorin/c/py-launch-blueprint \
+cd /Users/stevemorin/c/blueprint-press-dryrun \
   && git add docs/research/0004-template-press-dogfood-log.md \
   && git commit -m "docs: record dogfood run 1 (blueprint-dryrun) log and coverage matrix"
 ```
@@ -474,7 +474,7 @@ git commit -m "docs: triage run 1 dogfood problems"
 
 ```bash
 gh repo create "smorinlabs/template-press" \
-    --template smorinlabs/py-launch-blueprint \
+    --template smorinlabs/blueprint-press-dryrun \
     --public \
     --clone
 mv template-press ~/c/template-press 2>/dev/null || true
@@ -520,7 +520,7 @@ tpress = "template_press.cli.main:cli"
 
 ```bash
 cd ~/c/template-press && git add -A \
-  && git commit -m "chore: initialize template-press from py-launch-blueprint" \
+  && git commit -m "chore: initialize template-press from blueprint-press-dryrun" \
   && git push -u origin main \
   && make check && just setup && just check && uv run init/init_doctor.py
 ```
@@ -606,7 +606,7 @@ environment name).
 - [ ] **Step 2: Commit**
 
 ```bash
-cd /Users/stevemorin/c/py-launch-blueprint \
+cd /Users/stevemorin/c/blueprint-press-dryrun \
   && git add docs/research/0004-template-press-dogfood-log.md \
   && git commit -m "docs: record dogfood run 2 (template-press) log"
 ```
@@ -618,12 +618,12 @@ cd /Users/stevemorin/c/py-launch-blueprint \
   mapping, PF-1..PF-5 verdicts.
 
 ```bash
-gh issue comment 423 --repo smorinlabs/py-launch-blueprint --body-file /tmp/423-comment.md
+gh issue comment 423 --repo smorinlabs/blueprint-press-dryrun --body-file /tmp/423-comment.md
 ```
 
 - [ ] **Step 2: Update the #423 phase-3 checklist** — check "Create the
   repo; reserve `template-press` on PyPI immediately" via
-  `gh issue edit 423 --repo smorinlabs/py-launch-blueprint --body-file <updated-body>`
+  `gh issue edit 423 --repo smorinlabs/blueprint-press-dryrun --body-file <updated-body>`
   (fetch current body, flip the checkbox, note reservation predated this
   work).
 

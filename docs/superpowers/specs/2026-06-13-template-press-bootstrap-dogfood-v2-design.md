@@ -5,7 +5,7 @@
 - **Supersedes:** `2026-06-12-template-press-bootstrap-dogfood-design.md`
 - **Evidence:** `docs/research/0004-template-press-dogfood-log.md` (Run 1,
   13 problems + coverage matrix), advisor review 2026-06-13
-- **Drives:** issue [#423](https://github.com/smorinlabs/py-launch-blueprint/issues/423)
+- **Drives:** issue [#423](https://github.com/smorinlabs/blueprint-press-dryrun/issues/423)
 
 ## 0. What changed since v1
 

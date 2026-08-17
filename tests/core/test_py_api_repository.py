@@ -11,11 +11,11 @@ import pytest
 import responses
 from pydantic import ValidationError
 
-from py_launch_blueprint.core.adapters.py_api import (
+from blueprint_press_dryrun.core.adapters.py_api import (
     PyApiProjectsRepository,
     _ProjectPayload,
 )
-from py_launch_blueprint.core.errors import APIError
+from blueprint_press_dryrun.core.errors import APIError
 
 BASE = PyApiProjectsRepository.BASE_URL
 

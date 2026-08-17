@@ -36,46 +36,46 @@ files = [
   "docs/research/0003-init-post-init-analysis.md",       # 1x
   "docs/source/_templates/base.html",                    # 1x
   "docs/source/conf.py",                                 # 2x
-  "src/py_launch_blueprint/__init__.py",                 # 1x
-  "src/py_launch_blueprint/cli/__init__.py",             # 1x
-  "src/py_launch_blueprint/cli/commands/__init__.py",    # 1x
-  "src/py_launch_blueprint/cli/commands/config.py",      # 1x
-  "src/py_launch_blueprint/cli/commands/projects.py",    # 1x
-  "src/py_launch_blueprint/cli/context.py",              # 1x
-  "src/py_launch_blueprint/cli/exit_codes.py",           # 1x
-  "src/py_launch_blueprint/cli/groups.py",               # 1x
-  "src/py_launch_blueprint/cli/main.py",                 # 1x
-  "src/py_launch_blueprint/cli/options.py",              # 1x
-  "src/py_launch_blueprint/cli/output.py",               # 1x
-  "src/py_launch_blueprint/core/__init__.py",            # 1x
-  "src/py_launch_blueprint/core/config.py",              # 1x
-  "src/py_launch_blueprint/core/errors.py",              # 1x
-  "src/py_launch_blueprint/core/format.py",              # 1x
-  "src/py_launch_blueprint/core/logging.py",             # 1x
-  "src/py_launch_blueprint/core/models.py",              # 1x
-  "src/py_launch_blueprint/core/diagnostics.py",         # 1x
-  "src/py_launch_blueprint/core/paths.py",               # 1x
-  "src/py_launch_blueprint/core/services/__init__.py",   # 1x
-  "src/py_launch_blueprint/core/services/projects.py",   # 1x
-  "src/py_launch_blueprint/composition.py",              # 1x (HEX-04)
-  "src/py_launch_blueprint/core/ports.py",               # 1x (HEX-11)
-  "src/py_launch_blueprint/core/adapters/__init__.py",   # 1x
-  "src/py_launch_blueprint/core/adapters/py_api.py",     # 1x (HEX-13)
-  "src/py_launch_blueprint/core/adapters/in_memory.py",  # 1x (HEX-41)
-  "src/py_launch_blueprint/core/settings.py",            # 1x
-  "src/py_launch_blueprint/web/__init__.py",             # 1x
-  "src/py_launch_blueprint/web/__main__.py",             # 1x
-  "src/py_launch_blueprint/web/app.py",                  # 1x
-  "src/py_launch_blueprint/web/deps.py",                 # 1x
-  "src/py_launch_blueprint/web/idempotency.py",          # 1x
-  "src/py_launch_blueprint/web/logging.py",              # 1x
-  "src/py_launch_blueprint/web/middleware.py",           # 1x
-  "src/py_launch_blueprint/web/problems.py",             # 1x
-  "src/py_launch_blueprint/web/routers/__init__.py",     # 1x
-  "src/py_launch_blueprint/web/routers/projects.py",     # 1x
-  "src/py_launch_blueprint/web/settings.py",             # 1x
-  "src/py_launch_blueprint/web/telemetry.py",            # 1x
-  "src/py_launch_blueprint/web/versioning.py",           # 1x
+  "src/blueprint_press_dryrun/__init__.py",                 # 1x
+  "src/blueprint_press_dryrun/cli/__init__.py",             # 1x
+  "src/blueprint_press_dryrun/cli/commands/__init__.py",    # 1x
+  "src/blueprint_press_dryrun/cli/commands/config.py",      # 1x
+  "src/blueprint_press_dryrun/cli/commands/projects.py",    # 1x
+  "src/blueprint_press_dryrun/cli/context.py",              # 1x
+  "src/blueprint_press_dryrun/cli/exit_codes.py",           # 1x
+  "src/blueprint_press_dryrun/cli/groups.py",               # 1x
+  "src/blueprint_press_dryrun/cli/main.py",                 # 1x
+  "src/blueprint_press_dryrun/cli/options.py",              # 1x
+  "src/blueprint_press_dryrun/cli/output.py",               # 1x
+  "src/blueprint_press_dryrun/core/__init__.py",            # 1x
+  "src/blueprint_press_dryrun/core/config.py",              # 1x
+  "src/blueprint_press_dryrun/core/errors.py",              # 1x
+  "src/blueprint_press_dryrun/core/format.py",              # 1x
+  "src/blueprint_press_dryrun/core/logging.py",             # 1x
+  "src/blueprint_press_dryrun/core/models.py",              # 1x
+  "src/blueprint_press_dryrun/core/diagnostics.py",         # 1x
+  "src/blueprint_press_dryrun/core/paths.py",               # 1x
+  "src/blueprint_press_dryrun/core/services/__init__.py",   # 1x
+  "src/blueprint_press_dryrun/core/services/projects.py",   # 1x
+  "src/blueprint_press_dryrun/composition.py",              # 1x (HEX-04)
+  "src/blueprint_press_dryrun/core/ports.py",               # 1x (HEX-11)
+  "src/blueprint_press_dryrun/core/adapters/__init__.py",   # 1x
+  "src/blueprint_press_dryrun/core/adapters/py_api.py",     # 1x (HEX-13)
+  "src/blueprint_press_dryrun/core/adapters/in_memory.py",  # 1x (HEX-41)
+  "src/blueprint_press_dryrun/core/settings.py",            # 1x
+  "src/blueprint_press_dryrun/web/__init__.py",             # 1x
+  "src/blueprint_press_dryrun/web/__main__.py",             # 1x
+  "src/blueprint_press_dryrun/web/app.py",                  # 1x
+  "src/blueprint_press_dryrun/web/deps.py",                 # 1x
+  "src/blueprint_press_dryrun/web/idempotency.py",          # 1x
+  "src/blueprint_press_dryrun/web/logging.py",              # 1x
+  "src/blueprint_press_dryrun/web/middleware.py",           # 1x
+  "src/blueprint_press_dryrun/web/problems.py",             # 1x
+  "src/blueprint_press_dryrun/web/routers/__init__.py",     # 1x
+  "src/blueprint_press_dryrun/web/routers/projects.py",     # 1x
+  "src/blueprint_press_dryrun/web/settings.py",             # 1x
+  "src/blueprint_press_dryrun/web/telemetry.py",            # 1x
+  "src/blueprint_press_dryrun/web/versioning.py",           # 1x
   "tests/__init__.py",                                   # 1x
   "tests/meta/test_version_consistency.py",              # 1x
 ]
@@ -85,18 +85,18 @@ mode = "text"
 # (the modern CLI's [project.scripts] key + its comment)
 [[replace]]
 field = "app_name"
-current = ["plbp"]
+current = ["bpd"]
 files = [
   "pyproject.toml", # 2x
 ]
 mode = "structured"
 
 # app_name (text) — 319 occurrences in 49 files
-# NOTE: 4-char token — safe for text mode because "plbp" was invented to be
+# NOTE: 4-char token — safe for text mode because "bpd" was invented to be
 # substring-disjoint from real words and every other identity value.
 [[replace]]
 field = "app_name"
-current = ["plbp"]
+current = ["bpd"]
 files = [
   "press/press-rules.toml",                            # 2x (comment)
   "press/press-source.toml",                           # 1x
@@ -111,7 +111,7 @@ files = [
   "README.md",                                          # 2x
   "docs/research/0002-dev-tooling-wishlist.md",        # 5x (wishlist analysis)
   "docs/POST_INIT.md",                                  # 1x
-  "docs/adr/0001-app-short-name-plbp.md",               # 5x
+  "docs/adr/0001-app-short-name-bpd.md",               # 5x
   "docs/adr/0002-no-secrets-in-config-file.md",         # 1x
   "docs/adr/0003-keep-markdown-output-mode.md",         # 1x
   "docs/adr/0004-config-errors-degrade-to-warnings.md", # 1x
@@ -122,8 +122,8 @@ files = [
   "docs/adr/0012-doctor-bundle-redact-at-collection.md", # 2x
   "docs/adr/0016-app-short-name-placeholder.md",        # 10x
   "docs/adr/README.md",                                 # 2x
-  "docs/design/0001-plbp-cli-conventions.md",           # 28x
-  "docs/design/0005-hexagonal-architecture-and-enforcement.md", # plbp refs
+  "docs/design/0001-bpd-cli-conventions.md",           # 28x
+  "docs/design/0005-hexagonal-architecture-and-enforcement.md", # bpd refs
   "docs/design/README.md",                              # 2x
   "docs/research/0003-init-post-init-analysis.md",      # 5x
   "docs/source/about/design_decisions.md",              # 6x
@@ -133,18 +133,18 @@ files = [
   "docs/source/tasks/setting_up_development.md",        # 2x
   "llms.txt",                                           # 3x
   "projects/P01-init-rebrand-robustness.md",            # 7x
-  "src/py_launch_blueprint/cli/commands/__init__.py",   # 1x
-  "src/py_launch_blueprint/cli/commands/config.py",     # 9x
-  "src/py_launch_blueprint/cli/commands/projects.py",   # 6x
-  "src/py_launch_blueprint/cli/context.py",             # 3x
-  "src/py_launch_blueprint/cli/groups.py",              # 2x
-  "src/py_launch_blueprint/cli/main.py",                # 6x
-  "src/py_launch_blueprint/cli/options.py",             # 1x
-  "src/py_launch_blueprint/core/config.py",             # 9x
-  "src/py_launch_blueprint/core/diagnostics.py",        # 1x
-  "src/py_launch_blueprint/core/models.py",             # 1x
-  "src/py_launch_blueprint/core/paths.py",              # 20x
-  "src/py_launch_blueprint/web/app.py",                 # 1x
+  "src/blueprint_press_dryrun/cli/commands/__init__.py",   # 1x
+  "src/blueprint_press_dryrun/cli/commands/config.py",     # 9x
+  "src/blueprint_press_dryrun/cli/commands/projects.py",   # 6x
+  "src/blueprint_press_dryrun/cli/context.py",             # 3x
+  "src/blueprint_press_dryrun/cli/groups.py",              # 2x
+  "src/blueprint_press_dryrun/cli/main.py",                # 6x
+  "src/blueprint_press_dryrun/cli/options.py",             # 1x
+  "src/blueprint_press_dryrun/core/config.py",             # 9x
+  "src/blueprint_press_dryrun/core/diagnostics.py",        # 1x
+  "src/blueprint_press_dryrun/core/models.py",             # 1x
+  "src/blueprint_press_dryrun/core/paths.py",              # 20x
+  "src/blueprint_press_dryrun/web/app.py",                 # 1x
   "tests/cli/test_output.py",                           # 4x
   "tests/cli/test_pylb.py",                             # 27x
   "tests/cli/test_help_snapshots.py",                   # WL-023
@@ -152,25 +152,25 @@ files = [
   "tests/core/test_core.py",                            # 19x
   "tests/core/test_logging.py",                         # 8x
   "tests/core/test_paths.py",                           # 10x
-  "tests/core/test_properties.py",                      # 1x (plbp_config.toml)
+  "tests/core/test_properties.py",                      # 1x (bpd_config.toml)
 ]
 mode = "text"
 
 # app_name_upper (text) — 230 occurrences in 33 files
-# Derived identity (app_name.upper()): the PLBP_* env prefix and the
-# _PLBP_COMPLETE completion var. Never prompted; init derives it.
+# Derived identity (app_name.upper()): the BPD_* env prefix and the
+# _BPD_COMPLETE completion var. Never prompted; init derives it.
 [[replace]]
 field = "app_name_upper"
-current = ["PLBP"]
+current = ["BPD"]
 files = [
   "press/press-rules.toml",                            # 1x (comment)
   "AGENTS.md",                                        # 1x
   "Dockerfile",                                       # 1x
   "EXAMPLECLI.md",                                    # 12x
   "EXAMPLEWEB.md",                                    # 12x
-  "docs/design/0001-plbp-cli-conventions.md",         # 26x
+  "docs/design/0001-bpd-cli-conventions.md",         # 26x
   "docs/design/0002-web-api-conventions.md",          # 7x
-  "docs/adr/0001-app-short-name-plbp.md",             # 2x
+  "docs/adr/0001-app-short-name-bpd.md",             # 2x
   "docs/adr/0002-no-secrets-in-config-file.md",       # 3x
   "docs/adr/0006-stable-error-codes-hints-crash-log.md", # 5x
   "docs/adr/0008-pager-for-long-text-output.md",      # 2x
@@ -181,20 +181,20 @@ files = [
   "docs/source/index.md",                             # 1x
   "docs/source/web/index.md",                         # 10x
   "llms.txt",                                         # 1x
-  "src/py_launch_blueprint/cli/commands/config.py",   # 2x
-  "src/py_launch_blueprint/cli/commands/projects.py", # 1x
-  "src/py_launch_blueprint/cli/context.py",           # 9x
-  "src/py_launch_blueprint/cli/main.py",              # 2x
-  "src/py_launch_blueprint/cli/options.py",           # 5x
-  "src/py_launch_blueprint/cli/output.py",            # 4x
-  "src/py_launch_blueprint/core/config.py",           # 5x
-  "src/py_launch_blueprint/core/errors.py",           # 6x
-  "src/py_launch_blueprint/core/logging.py",          # 1x
-  "src/py_launch_blueprint/core/settings.py",         # 1x
-  "src/py_launch_blueprint/web/settings.py",          # 1x
+  "src/blueprint_press_dryrun/cli/commands/config.py",   # 2x
+  "src/blueprint_press_dryrun/cli/commands/projects.py", # 1x
+  "src/blueprint_press_dryrun/cli/context.py",           # 9x
+  "src/blueprint_press_dryrun/cli/main.py",              # 2x
+  "src/blueprint_press_dryrun/cli/options.py",           # 5x
+  "src/blueprint_press_dryrun/cli/output.py",            # 4x
+  "src/blueprint_press_dryrun/core/config.py",           # 5x
+  "src/blueprint_press_dryrun/core/errors.py",           # 6x
+  "src/blueprint_press_dryrun/core/logging.py",          # 1x
+  "src/blueprint_press_dryrun/core/settings.py",         # 1x
+  "src/blueprint_press_dryrun/web/settings.py",          # 1x
   "tests/cli/test_output.py",                         # 15x
   "tests/cli/test_pylb.py",                           # 38x
-  "tests/core/test_projects_service.py",              # PLBP005/PLBP006 codes
+  "tests/core/test_projects_service.py",              # BPD005/BPD006 codes
   "tests/web/test_app.py",                            # 2x
   "tests/web/test_logging.py",                        # 3x
   "tests/web/test_settings.py",                       # 5x
@@ -262,7 +262,7 @@ mode = "text"
 # package_name (structured) — 5 occurrences in 1 files
 [[replace]]
 field = "package_name"
-current = ["py_launch_blueprint"]
+current = ["blueprint_press_dryrun"]
 files = [
   "pyproject.toml", # 6x (incl. [tool.pyright] include path)
 ]
@@ -271,7 +271,7 @@ mode = "structured"
 # package_name (text) — 142 occurrences in 50 files
 [[replace]]
 field = "package_name"
-current = ["py_launch_blueprint"]
+current = ["blueprint_press_dryrun"]
 files = [
   "press/press-source.toml",                           # 1x
   ".coderabbit.yaml",                                  # 1x (import convention)
@@ -301,46 +301,46 @@ files = [
   "docs/source/tutorials/full_project_setup.md",       # 3x
   "lefthook.yml",                                      # 1x
   "tach.toml",                                         # HEX-31 module paths
-  "src/py_launch_blueprint/__init__.py",               # 1x
-  "src/py_launch_blueprint/cli/__init__.py",           # 1x
-  "src/py_launch_blueprint/core/diagnostics.py",       # 3x
-  "src/py_launch_blueprint/cli/commands/__init__.py",  # 2x
-  "src/py_launch_blueprint/cli/commands/config.py",    # 6x
-  "src/py_launch_blueprint/cli/commands/projects.py",  # 5x
-  "src/py_launch_blueprint/cli/context.py",            # 6x
-  "src/py_launch_blueprint/cli/exit_codes.py",         # 1x
-  "src/py_launch_blueprint/cli/main.py",               # 7x
-  "src/py_launch_blueprint/cli/options.py",            # 4x
-  "src/py_launch_blueprint/cli/output.py",             # 2x
-  "src/py_launch_blueprint/core/__init__.py",          # 7x
-  "src/py_launch_blueprint/core/config.py",            # 3x
-  "src/py_launch_blueprint/core/errors.py",            # 1x
-  "src/py_launch_blueprint/core/logging.py",           # 1x
-  "src/py_launch_blueprint/core/models.py",            # 1x
-  "src/py_launch_blueprint/core/services/__init__.py", # 1x
-  "src/py_launch_blueprint/core/services/projects.py", # 3x
-  "src/py_launch_blueprint/composition.py",            # HEX-04 composition root
-  "src/py_launch_blueprint/core/ports.py",             # HEX-11 ports
-  "src/py_launch_blueprint/core/adapters/py_api.py",   # HEX-13 http adapter
-  "src/py_launch_blueprint/core/adapters/in_memory.py", # HEX-41 in-memory fake
+  "src/blueprint_press_dryrun/__init__.py",               # 1x
+  "src/blueprint_press_dryrun/cli/__init__.py",           # 1x
+  "src/blueprint_press_dryrun/core/diagnostics.py",       # 3x
+  "src/blueprint_press_dryrun/cli/commands/__init__.py",  # 2x
+  "src/blueprint_press_dryrun/cli/commands/config.py",    # 6x
+  "src/blueprint_press_dryrun/cli/commands/projects.py",  # 5x
+  "src/blueprint_press_dryrun/cli/context.py",            # 6x
+  "src/blueprint_press_dryrun/cli/exit_codes.py",         # 1x
+  "src/blueprint_press_dryrun/cli/main.py",               # 7x
+  "src/blueprint_press_dryrun/cli/options.py",            # 4x
+  "src/blueprint_press_dryrun/cli/output.py",             # 2x
+  "src/blueprint_press_dryrun/core/__init__.py",          # 7x
+  "src/blueprint_press_dryrun/core/config.py",            # 3x
+  "src/blueprint_press_dryrun/core/errors.py",            # 1x
+  "src/blueprint_press_dryrun/core/logging.py",           # 1x
+  "src/blueprint_press_dryrun/core/models.py",            # 1x
+  "src/blueprint_press_dryrun/core/services/__init__.py", # 1x
+  "src/blueprint_press_dryrun/core/services/projects.py", # 3x
+  "src/blueprint_press_dryrun/composition.py",            # HEX-04 composition root
+  "src/blueprint_press_dryrun/core/ports.py",             # HEX-11 ports
+  "src/blueprint_press_dryrun/core/adapters/py_api.py",   # HEX-13 http adapter
+  "src/blueprint_press_dryrun/core/adapters/in_memory.py", # HEX-41 in-memory fake
   "tests/core/test_projects_service.py",               # ring-2 use-case tests
   "tests/core/test_py_api_repository.py",              # adapter mapping tests
-  "src/py_launch_blueprint/core/settings.py",          # 1x
-  "src/py_launch_blueprint/web/__init__.py",           # 1x
-  "src/py_launch_blueprint/web/__main__.py",           # 4x
-  "src/py_launch_blueprint/web/app.py",                # 15x
-  "src/py_launch_blueprint/web/deps.py",               # 4x
-  "src/py_launch_blueprint/web/logging.py",            # 4x
-  "src/py_launch_blueprint/web/middleware.py",         # 1x
-  "src/py_launch_blueprint/web/problems.py",           # 2x
-  "src/py_launch_blueprint/web/routers/__init__.py",   # 1x
-  "src/py_launch_blueprint/web/routers/projects.py",   # 2x
-  "src/py_launch_blueprint/web/settings.py",           # 2x
-  "src/py_launch_blueprint/web/telemetry.py",          # 2x
+  "src/blueprint_press_dryrun/core/settings.py",          # 1x
+  "src/blueprint_press_dryrun/web/__init__.py",           # 1x
+  "src/blueprint_press_dryrun/web/__main__.py",           # 4x
+  "src/blueprint_press_dryrun/web/app.py",                # 15x
+  "src/blueprint_press_dryrun/web/deps.py",               # 4x
+  "src/blueprint_press_dryrun/web/logging.py",            # 4x
+  "src/blueprint_press_dryrun/web/middleware.py",         # 1x
+  "src/blueprint_press_dryrun/web/problems.py",           # 2x
+  "src/blueprint_press_dryrun/web/routers/__init__.py",   # 1x
+  "src/blueprint_press_dryrun/web/routers/projects.py",   # 2x
+  "src/blueprint_press_dryrun/web/settings.py",           # 2x
+  "src/blueprint_press_dryrun/web/telemetry.py",          # 2x
   "Dockerfile",                                        # 1x
   "docs/adr/0013-web-service-best-practices.md",       # 2x
   "docs/design/0002-web-api-conventions.md",           # 2x
-  "docs/design/0005-hexagonal-architecture-and-enforcement.md", # py_launch_blueprint import paths
+  "docs/design/0005-hexagonal-architecture-and-enforcement.md", # blueprint_press_dryrun import paths
   "docs/source/web/index.md",                          # 1x
   "scripts/export_openapi.py",                         # 2x
   "release-please-config.json",                        # 1x
@@ -375,7 +375,7 @@ mode = "text"
 # repo_name (structured) — 6 occurrences in 2 files
 [[replace]]
 field = "repo_name"
-current = ["py-launch-blueprint"]
+current = ["blueprint-press-dryrun"]
 files = [
   ".gitleaks.toml", # 1x
   "pyproject.toml", # 5x
@@ -385,7 +385,7 @@ mode = "structured"
 # repo_name (text) — 122 occurrences in 27 files
 [[replace]]
 field = "repo_name"
-current = ["py-launch-blueprint"]
+current = ["blueprint-press-dryrun"]
 files = [
   "press/press-source.toml",                           # 1x
   ".agents/plugins/marketplace.json",             # 2x
@@ -399,7 +399,7 @@ files = [
   "AGENTS.md",                                    # 3x
   "Justfile",                                     # 1x
   "README.md",                                    # 17x
-  "docs/design/0001-plbp-cli-conventions.md",     # 3x
+  "docs/design/0001-bpd-cli-conventions.md",     # 3x
   "docs/research/0003-init-post-init-analysis.md", # 4x
   "docs/source/_templates/base.html",             # 1x
   "docs/source/about/design_decisions.md",        # 51x
@@ -419,8 +419,8 @@ files = [
   "docs/source/tutorials/full_project_setup.md",  # 2x
   "llms.txt",                                     # 11x
   "package.json",                                 # 2x
-  "src/py_launch_blueprint/web/__init__.py",      # 1x
-  "src/py_launch_blueprint/web/app.py",           # 1x
+  "src/blueprint_press_dryrun/web/__init__.py",      # 1x
+  "src/blueprint_press_dryrun/web/app.py",           # 1x
   "docs/api/openapi.json",                        # 1x
   "docs/adr/0013-web-service-best-practices.md",  # 1x
   "docs/source/web/index.md",                     # 2x
@@ -429,31 +429,31 @@ files = [
 mode = "text"
 
 [[rename]]
-from = "assets/images/logos/py_launch_blueprint_logo_1024x1024.png"
+from = "assets/images/logos/blueprint_press_dryrun_logo_1024x1024.png"
 to = "assets/images/logos/{package_name}_logo_1024x1024.png"
 
 [[rename]]
-from = "docs/source/_static/py_launch_blueprint_logo_100x100.png"
+from = "docs/source/_static/blueprint_press_dryrun_logo_100x100.png"
 to = "docs/source/_static/{package_name}_logo_100x100.png"
 
 [[rename]]
-from = "assets/images/logos/py_launch_blueprint_logo_150x150.png"
+from = "assets/images/logos/blueprint_press_dryrun_logo_150x150.png"
 to = "assets/images/logos/{package_name}_logo_150x150.png"
 
 [[rename]]
-from = "assets/images/logos/py_launch_blueprint_logo_100x100.png"
+from = "assets/images/logos/blueprint_press_dryrun_logo_100x100.png"
 to = "assets/images/logos/{package_name}_logo_100x100.png"
 
 [[rename]]
-from = "docs/adr/0001-app-short-name-plbp.md"
+from = "docs/adr/0001-app-short-name-bpd.md"
 to = "docs/adr/0001-app-short-name-{app_name}.md"
 
 [[rename]]
-from = "docs/design/0001-plbp-cli-conventions.md"
+from = "docs/design/0001-bpd-cli-conventions.md"
 to = "docs/design/0001-{app_name}-cli-conventions.md"
 
 [[rename]]
-from = "src/py_launch_blueprint"
+from = "src/blueprint_press_dryrun"
 to = "src/{package_name}"
 
 [[remove]]
@@ -514,39 +514,39 @@ reason = "template-press TUI prototype is engine history; moves to template_pres
 
 [[remove]]
 path = ".github/workflows/update-contributors.yml"
-reason = "py-launch-blueprint contributors automation is project-specific"
+reason = "blueprint-press-dryrun contributors automation is project-specific"
 
 [[remove]]
 path = ".github/workflows/difftree.yml"
-reason = "py-launch-blueprint PR diff-tree comment workflow is project-specific"
+reason = "blueprint-press-dryrun PR diff-tree comment workflow is project-specific"
 
 [[remove]]
 path = ".contributors.yml"
-reason = "py-launch-blueprint contributor config is project-specific"
+reason = "blueprint-press-dryrun contributor config is project-specific"
 
 [[remove]]
 path = ".contributors.jsonl"
-reason = "py-launch-blueprint contributor state is project-specific"
+reason = "blueprint-press-dryrun contributor state is project-specific"
 
 [[remove]]
 path = "CONTRIBUTORS.md"
-reason = "py-launch-blueprint generated contributors file is project-specific"
+reason = "blueprint-press-dryrun generated contributors file is project-specific"
 
 [[remove]]
 path = "tests/meta/test_contributors_render.py"
-reason = "py-launch-blueprint contributor-state regression is project-specific"
+reason = "blueprint-press-dryrun contributor-state regression is project-specific"
 
 [[remove]]
 path = "tests/meta/test_contributors_state.py"
-reason = "py-launch-blueprint contributor-state regression is project-specific"
+reason = "blueprint-press-dryrun contributor-state regression is project-specific"
 
 [[remove]]
 path = "tests/meta/test_contributors_workflow.py"
-reason = "py-launch-blueprint contributor-workflow regression is project-specific"
+reason = "blueprint-press-dryrun contributor-workflow regression is project-specific"
 
 [[remove]]
 path = "tests/meta/test_justfile.py"
-reason = "py-launch-blueprint contributor-recipe regression is project-specific"
+reason = "blueprint-press-dryrun contributor-recipe regression is project-specific"
 
 [[remove]]
 path = "init/discover.py"
@@ -557,7 +557,7 @@ path = "uv.lock"
 command = ["uv", "lock"]
 
 # P0004 dogfood PROBLEM-05: plain `bun install` leaves the workspace `name`
-# (e.g. "py-launch-blueprint-tooling") embedded in bun.lock — bun considers
+# (e.g. "blueprint-press-dryrun-tooling") embedded in bun.lock — bun considers
 # the lock satisfiable and won't rewrite it, leaking blueprint identity into
 # every fork. Force a clean regeneration so the renamed package.json name is
 # picked up. run_regenerates executes argv with no shell, so a `bash -c`
@@ -591,7 +591,7 @@ command = [
 ]
 
 # Reset (not rewrite) on init: CHANGELOG.md accumulates the blueprint's own
-# release history (compare-URLs, `plbp`, `smorinlabs`); a fork starts its own,
+# release history (compare-URLs, `bpd`, `smorinlabs`); a fork starts its own,
 # populated by release-please from the fork's first release.
 [[reset]]
 path = "CHANGELOG.md"

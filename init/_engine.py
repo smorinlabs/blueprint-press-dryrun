@@ -40,7 +40,7 @@ from common import (
 class Answers:
     """User-supplied answers — one per prompted field in BLUEPRINT_IDENTITY.
 
-    ``app_name`` is the modern CLI's short name (blueprint: ``plbp``); its
+    ``app_name`` is the modern CLI's short name (blueprint: ``bpd``); its
     uppercase form (the env-var prefix) is derived, never asked.
     """
 

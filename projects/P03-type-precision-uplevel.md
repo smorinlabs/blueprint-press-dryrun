@@ -1,7 +1,7 @@
 # P03 — Type Precision Uplevel
 
 **Status**: `[~]` in progress (v0.1.0)
-**Goal**: Uplevel type precision across `src/py_launch_blueprint/` and close the
+**Goal**: Uplevel type precision across `src/blueprint_press_dryrun/` and close the
 CI type-enforcement gap, grounded in the verified research reference
 (`research/reference/python-typing-ty-2026-07-18.md`) and a two-lens audit
 (Fable design-judgment + Codex empirical). Eliminate *leaking* / overly-general
@@ -67,7 +67,7 @@ see P04's Decisions block for the four calls that shaped it.
 | `analysis.strict-literal-narrowing` | not supported in 0.0.39 (exit 2) — omit |
 | `error-on-warning` | warnings exit 0 by default; `true` would gate `deprecated` |
 | ruff `TC` (`--no-fix`, project-wide) | **5 errors** (2 safe `TC006`, 3 **unsafe-hidden** `TC003`) |
-| ruff `ANN` on `src/py_launch_blueprint/**` | **9 findings, all `ANN401`** — package otherwise fully annotated |
+| ruff `ANN` on `src/blueprint_press_dryrun/**` | **9 findings, all `ANN401`** — package otherwise fully annotated |
 | ruff `ANN` on `init/tests/**` | **142 findings** — must NOT roll ANN out there now |
 
 ## How the two lenses were adjudicated
@@ -92,7 +92,7 @@ see P04's Decisions block for the four calls that shaped it.
       `invalid-enum-member-annotation`, `invalid-named-tuple-override`.
       (Explicitly NOT `blanket-ignore-comment`.)
 - [x] [P03-T02] Add `[tool.ty.environment] python-version = "3.12"`.
-- [x] [P03-TS01] `uv run --extra web ty check src/py_launch_blueprint/` → passes.
+- [x] [P03-TS01] `uv run --extra web ty check src/blueprint_press_dryrun/` → passes.
 
 ### Tier B — Literals + `@override` (mechanical, high leverage)
 - [x] [P03-T04] `DoctorCheck.status: str` → `Literal["ok","warn","error"]`
@@ -120,7 +120,7 @@ see P04's Decisions block for the four calls that shaped it.
 - [x] [P03-TS03] `just check` green; CLI tests pass.
 
 ### Tier D — Annotation-presence gate (after Tier C shrinks the `Any` surface)
-- [x] [P03-T13] Add ruff `ANN` scoped to `src/py_launch_blueprint/**`; NO global
+- [x] [P03-T13] Add ruff `ANN` scoped to `src/blueprint_press_dryrun/**`; NO global
       `ANN401` ignore; two targeted `# noqa: ANN401` for the Click forwarding
       slots (`cli/options.py:159,171`); per-file `ANN` ignore for `tests/*` and
       `init/tests/**`.
@@ -186,7 +186,7 @@ document five attribute accesses in one function. Unlike structlog (which ships
 surface used is the right level of investment.
 
 ## Automated Verification
-- `uv run --extra web ty check src/py_launch_blueprint/` passes after every tier.
+- `uv run --extra web ty check src/blueprint_press_dryrun/` passes after every tier.
 - `just check` (ruff lint+format, ty, pytest) green before considering a tier done.
 - OpenAPI snapshot regenerated + committed after T04 and T14 (api-contract CI).
 

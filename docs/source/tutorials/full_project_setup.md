@@ -1,6 +1,6 @@
 # Full Project Setup
 
-This tutorial will guide you through the end-to-end setup of a new project using the Py Launch Blueprint template. By the end of this tutorial, you will have a fully functional Python project with a pre-configured development environment, ready for production.
+This tutorial will guide you through the end-to-end setup of a new project using the Blueprint Press Dryrun template. By the end of this tutorial, you will have a fully functional Python project with a pre-configured development environment, ready for production.
 
 ## Prerequisites
 
@@ -14,11 +14,11 @@ Before you begin, ensure you have the following installed on your system:
 
 ### 1. Clone the Repository
 
-First, clone the Py Launch Blueprint repository to your local machine:
+First, clone the Blueprint Press Dryrun repository to your local machine:
 
 ```bash
-git clone https://github.com/smorinlabs/py-launch-blueprint.git
-cd py-launch-blueprint
+git clone https://github.com/smorinlabs/blueprint-press-dryrun.git
+cd blueprint-press-dryrun
 ```
 
 ### 2. Install Dependencies
@@ -65,7 +65,7 @@ git commit -m "Initial commit"
 
 ### 7. Set Up CI/CD
 
-Configure the CI/CD pipeline for your project using GitHub Actions. The Py Launch Blueprint template includes a pre-configured GitHub Actions workflow in the `.github/workflows/ci.yaml` file. Customize this workflow to fit your project's needs.
+Configure the CI/CD pipeline for your project using GitHub Actions. The Blueprint Press Dryrun template includes a pre-configured GitHub Actions workflow in the `.github/workflows/ci.yaml` file. Customize this workflow to fit your project's needs.
 
 ### 8. Start Developing
 
@@ -92,9 +92,9 @@ just lint
 ## Project Commands
 
 - **Setup**: `just setup` or `uv pip install --editable ".[dev]"`
-- **Format**: `just format` or `uvx ruff format py_launch_blueprint/`
-- **Lint**: `just lint` or `uvx ruff check py_launch_blueprint/`
-- **Type check**: `just typecheck` or `uv run ty check src/py_launch_blueprint/`
+- **Format**: `just format` or `uvx ruff format blueprint_press_dryrun/`
+- **Lint**: `just lint` or `uvx ruff check blueprint_press_dryrun/`
+- **Type check**: `just typecheck` or `uv run ty check src/blueprint_press_dryrun/`
 - **Test all**: `just test` or `uvx --with-editable . pytest`
 - **Test single**: `uvx --with-editable . pytest tests/test_file.py::test_name`
 - **All checks**: `just check`

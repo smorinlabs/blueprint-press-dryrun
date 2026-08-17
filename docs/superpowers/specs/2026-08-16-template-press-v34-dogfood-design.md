@@ -8,10 +8,10 @@
   v3.4 engine surface and the conform milestone)
 - **Evidence:** `docs/research/0004-template-press-dogfood-log.md`
   (PROBLEM-NN register, continued here); template-press
-  `docs/research/0004-py-launch-blueprint-conformance-gaps.md` (G1–G5
+  `docs/research/0004-blueprint-press-dryrun-conformance-gaps.md` (G1–G5
   register, merged PR #40)
 - **Drives:** issue #423 (engine extraction) — partially; scope gate in §4
-- **Related in-flight:** py-launch-blueprint PR #505 (open,
+- **Related in-flight:** blueprint-press-dryrun PR #505 (open,
   `fix(guard): accept a press receipt as an initialized marker`) — a
   **prerequisite for Phases 3–4**: a pressed instance carries
   `press/press-receipt.toml`, not the legacy init marker, so without #505
@@ -21,10 +21,10 @@
 ## 0. Purpose — two goals that feed each other
 
 1. **Test template-press** (the standalone `press` CLI) by running it for
-   real against py-launch-blueprint. Every failure is either a press engine
+   real against blueprint-press-dryrun. Every failure is either a press engine
    bug or blueprint drift; each finding is triaged to its owning repo and
    fixed there.
-2. **Bring py-launch-blueprint into sync** with the current template-press
+2. **Bring blueprint-press-dryrun into sync** with the current template-press
    contract, proving it end-to-end: `press verify` exits 0, and a pressed
    instance publishes into a new repo the way a real user would.
 
@@ -36,7 +36,7 @@
   native platform regeneration), and P07 is part of "the new version" this
   campaign exists to test — so main, not the tag. Run as
   `uv run press …` from `~/c/template-press`.
-- **Target baseline:** py-launch-blueprint `origin/main` @ `734abfd`.
+- **Target baseline:** blueprint-press-dryrun `origin/main` @ `734abfd`.
 
 **D-v4-1 — pin main, record the commit.** If template-press main moves
 mid-campaign (our own fixes), re-pin explicitly in the dogfood log; never
@@ -52,9 +52,9 @@ opt-in via the target's config**:
 |---|---|---|---|
 | G1 CHANGELOG excluded-not-reset | 678 | `[[reset]]` schema (v3.4.0) | `[[reset]]` stub for `CHANGELOG.md` |
 | G2 bun.lock excluded-not-regenerated | 2 | `[[regenerate]]` + generic executor (v3.4.0) | `[[regenerate]]` via platform-split regen scripts |
-| G3 app_name substring variants (`_plbp_owned`, `plbp-web`) | 16 | opt-in per-field substring rewrite mode (v3.3.0) | substring mode for `app_name` |
-| G4 display name "Py Launch Blueprint" | 74 | optional `display_name` identity field with closed form set (v3.3.0) | `display_name` in `[identity]` |
-| G5 doc filename tokens (`…-plbp.md`) | 2 (+4 refs) | `[[replace]]` rules + substring fields in path renames (v3.3.0) | rename coverage via substring/replace rules |
+| G3 app_name substring variants (`_bpd_owned`, `bpd-web`) | 16 | opt-in per-field substring rewrite mode (v3.3.0) | substring mode for `app_name` |
+| G4 display name "Blueprint Press Dryrun" | 74 | optional `display_name` identity field with closed form set (v3.3.0) | `display_name` in `[identity]` |
+| G5 doc filename tokens (`…-bpd.md`) | 2 (+4 refs) | `[[replace]]` rules + substring fields in path renames (v3.3.0) | rename coverage via substring/replace rules |
 
 Plus new v3.4.0 surface to exercise: the excluded-file contract gate (§6),
 `press check-tools`, receipt invalidation on forced re-press; and
@@ -99,11 +99,11 @@ gaps.
 Pins recorded (§1), expectations table built (§2). Pre-existing state
 reported, not touched:
 
-- py-launch-blueprint local `main` is **ahead 1 / behind 2** of origin —
+- blueprint-press-dryrun local `main` is **ahead 1 / behind 2** of origin —
   user to reconcile; campaign work branches from `origin/main` so this
   does not block.
-- Stale worktrees `py-launch-blueprint-guard` (PR #505's branch) and
-  `py-launch-blueprint-p1verify` (detached, holds an uncommitted July 25
+- Stale worktrees `blueprint-press-dryrun-guard` (PR #505's branch) and
+  `blueprint-press-dryrun-p1verify` (detached, holds an uncommitted July 25
   draft `press/press-source.toml` — prior art only; per user decision the
   config is authored from scratch). Disposition at close-out, with user.
 - template-press live checkout has one untracked handoff doc.
@@ -113,16 +113,16 @@ In the campaign worktree (branch `feat/press-conform`, from `origin/main`):
 
 1. Author `press/press-source.toml` from scratch (the July `p1verify`
    draft is prior art only, not reused) — `[identity]`: package
-   `py_launch_blueprint`, repo `py-launch-blueprint`, app `plbp`, owner
+   `blueprint_press_dryrun`, repo `blueprint-press-dryrun`, app `bpd`, owner
    `smorinlabs`, author `Steve Morin`, email `steve.morin@gmail.com`,
-   plus the new optional `display_name = "Py Launch Blueprint"` (G4).
+   plus the new optional `display_name = "Blueprint Press Dryrun"` (G4).
 2. Author `press/press-rules.toml` with template-press's own committed
    `press/press-rules.toml` as the canonical model: `[[reset]]`
    `CHANGELOG.md` → stub; `[[regenerate]]` `uv.lock` and `bun.lock`
    (bun.lock needs platform-split regen scripts — bun install alone never
    rewrites an existing lock's workspace name; blueprint needs its own
    copies); substring mode for `app_name` (G3); rename coverage for the
-   `…-plbp.md` doc filenames (G5); `[verify]` config as needed.
+   `…-bpd.md` doc filenames (G5); `[verify]` config as needed.
 3. Optionally commit a `press/press-answers.example.toml` placeholder
    (advertised field shape; the filled file stays uncommitted operator
    input).
@@ -200,7 +200,7 @@ including the declared-commands and P07 platform surface; every discovered
 bug dispositioned.
 
 **Goal 2 (blueprint in sync):** `uv run press verify --target
-<fresh py-launch-blueprint main clone>` exits 0; a pressed instance passes
+<fresh blueprint-press-dryrun main clone>` exits 0; a pressed instance passes
 its own checks and sits in the new repo with CI green (release-please may
 stay credential-gated red, as in v3 — documented, not a gate).
 

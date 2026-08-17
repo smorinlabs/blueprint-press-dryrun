@@ -1,7 +1,7 @@
 # Blueprint guard CI — pins the contract between init/ and downstream projects.
 #
 # This workflow is *blueprint-only*: `check_no_marker.sh` is scoped to the
-# `*/py-launch-blueprint` repo via $GITHUB_REPOSITORY (auto-set by GitHub
+# `*/blueprint-press-dryrun` repo via $GITHUB_REPOSITORY (auto-set by GitHub
 # Actions), and `init --prune` deletes this whole file during migration.
 # Layered defense against either path being missed.
 

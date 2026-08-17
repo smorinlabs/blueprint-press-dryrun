@@ -1,11 +1,11 @@
 # serializer version: 1
-# name: test_help_snapshot[plbp completion]
+# name: test_help_snapshot[bpd completion]
   '''
-  Usage: plbp completion [OPTIONS] {bash|zsh|fish}
+  Usage: bpd completion [OPTIONS] {bash|zsh|fish}
   
     Print a shell completion script.
   
-    Examples:     plbp completion bash >> ~/.bashrc     eval "$(plbp completion
+    Examples:     bpd completion bash >> ~/.bashrc     eval "$(bpd completion
     zsh)"
   
   Options:
@@ -13,15 +13,15 @@
   
   '''
 # ---
-# name: test_help_snapshot[plbp config get]
+# name: test_help_snapshot[bpd config get]
   '''
-  Usage: plbp config get [OPTIONS] {logging.file|logging.file_level|logging.format
+  Usage: bpd config get [OPTIONS] {logging.file|logging.file_level|logging.format
                          |logging.level|output.color|output.format|token}
   
     Show a resolved config value and where it came from.
   
-    The token is masked and resolves from flag/env only. Examples:     plbp config
-    get output.color     plbp config get logging.level --json     plbp config get
+    The token is masked and resolves from flag/env only. Examples:     bpd config
+    get output.color     bpd config get logging.level --json     bpd config get
     token
   
   Options:
@@ -40,25 +40,25 @@
     --config FILE                   Path to a TOML config file (overrides layered
                                     discovery).
     --token TEXT                    Py Personal Access Token (overrides
-                                    $PLBP_TOKEN). Never stored.
+                                    $BPD_TOKEN). Never stored.
     --no-input                      Never prompt; fail instead (for scripts/CI).
     -h, --help                      Show this message and exit.
   
   '''
 # ---
-# name: test_help_snapshot[plbp config init]
+# name: test_help_snapshot[bpd config init]
   '''
-  Usage: plbp config init [OPTIONS]
+  Usage: bpd config init [OPTIONS]
   
     Create or update the config file with guided prompts.
   
     Asks (on stderr, so stdout stays pipe-safe) for the most common settings,
     offering the currently resolved values as defaults, then writes them to the
     TOML config file. Secrets are never written — the token stays in --token /
-    $PLBP_TOKEN. Examples:
+    $BPD_TOKEN. Examples:
   
-        plbp config init     plbp config init --yes       # accept current values,
-        no prompts     plbp config init --dry-run   # preview, write nothing
+        bpd config init     bpd config init --yes       # accept current values,
+        no prompts     bpd config init --dry-run   # preview, write nothing
   
   Options:
     --dry-run                       Show what would change; write nothing.
@@ -78,19 +78,19 @@
     --config FILE                   Path to a TOML config file (overrides layered
                                     discovery).
     --token TEXT                    Py Personal Access Token (overrides
-                                    $PLBP_TOKEN). Never stored.
+                                    $BPD_TOKEN). Never stored.
     --no-input                      Never prompt; fail instead (for scripts/CI).
     -h, --help                      Show this message and exit.
   
   '''
 # ---
-# name: test_help_snapshot[plbp config path]
+# name: test_help_snapshot[bpd config path]
   '''
-  Usage: plbp config path [OPTIONS]
+  Usage: bpd config path [OPTIONS]
   
     Show the config file path and whether it exists.
   
-    Examples:     plbp config path     plbp config path --json
+    Examples:     bpd config path     bpd config path --json
   
   Options:
     -o, --output [text|json|markdown]
@@ -108,24 +108,24 @@
     --config FILE                   Path to a TOML config file (overrides layered
                                     discovery).
     --token TEXT                    Py Personal Access Token (overrides
-                                    $PLBP_TOKEN). Never stored.
+                                    $BPD_TOKEN). Never stored.
     --no-input                      Never prompt; fail instead (for scripts/CI).
     -h, --help                      Show this message and exit.
   
   '''
 # ---
-# name: test_help_snapshot[plbp config set]
+# name: test_help_snapshot[bpd config set]
   '''
-  Usage: plbp config set [OPTIONS] {logging.file|logging.file_level|logging.format
+  Usage: bpd config set [OPTIONS] {logging.file|logging.file_level|logging.format
                          |logging.level|output.color|output.format} VALUE
   
     Write a non-secret config value to the TOML config file.
   
-    KEY is a dotted path into the config tables. Examples:     plbp config set
-    output.color always     plbp config set logging.level info     plbp config set
+    KEY is a dotted path into the config tables. Examples:     bpd config set
+    output.color always     bpd config set logging.level info     bpd config set
     logging.file_level debug --yes
   
-    Secrets are never stored here — supply the token via --token or $PLBP_TOKEN.
+    Secrets are never stored here — supply the token via --token or $BPD_TOKEN.
     Prompts before overwriting an existing value unless --yes.
   
   Options:
@@ -146,15 +146,15 @@
     --config FILE                   Path to a TOML config file (overrides layered
                                     discovery).
     --token TEXT                    Py Personal Access Token (overrides
-                                    $PLBP_TOKEN). Never stored.
+                                    $BPD_TOKEN). Never stored.
     --no-input                      Never prompt; fail instead (for scripts/CI).
     -h, --help                      Show this message and exit.
   
   '''
 # ---
-# name: test_help_snapshot[plbp config]
+# name: test_help_snapshot[bpd config]
   '''
-  Usage: plbp config [OPTIONS] COMMAND [ARGS]...
+  Usage: bpd config [OPTIONS] COMMAND [ARGS]...
   
     Inspect and edit CLI configuration.
   
@@ -169,9 +169,9 @@
   
   '''
 # ---
-# name: test_help_snapshot[plbp doctor]
+# name: test_help_snapshot[bpd doctor]
   '''
-  Usage: plbp doctor [OPTIONS]
+  Usage: bpd doctor [OPTIONS]
   
     Diagnose configuration and environment.
   
@@ -198,19 +198,19 @@
     --config FILE                   Path to a TOML config file (overrides layered
                                     discovery).
     --token TEXT                    Py Personal Access Token (overrides
-                                    $PLBP_TOKEN). Never stored.
+                                    $BPD_TOKEN). Never stored.
     --no-input                      Never prompt; fail instead (for scripts/CI).
     -h, --help                      Show this message and exit.
   
   '''
 # ---
-# name: test_help_snapshot[plbp projects get]
+# name: test_help_snapshot[bpd projects get]
   '''
-  Usage: plbp projects get [OPTIONS] PROJECT_ID
+  Usage: bpd projects get [OPTIONS] PROJECT_ID
   
     Fetch a single project by its ID.
   
-    Examples:     plbp projects get 12345     plbp projects get 12345 --json
+    Examples:     bpd projects get 12345     bpd projects get 12345 --json
   
   Options:
     -o, --output [text|json|markdown]
@@ -228,20 +228,20 @@
     --config FILE                   Path to a TOML config file (overrides layered
                                     discovery).
     --token TEXT                    Py Personal Access Token (overrides
-                                    $PLBP_TOKEN). Never stored.
+                                    $BPD_TOKEN). Never stored.
     --no-input                      Never prompt; fail instead (for scripts/CI).
     -h, --help                      Show this message and exit.
   
   '''
 # ---
-# name: test_help_snapshot[plbp projects list]
+# name: test_help_snapshot[bpd projects list]
   '''
-  Usage: plbp projects list [OPTIONS]
+  Usage: bpd projects list [OPTIONS]
   
     List projects, optionally filtered by workspace.
   
-    Examples:     plbp projects list     plbp projects list --workspace "My
-    Workspace" --json     plbp projects list -o markdown
+    Examples:     bpd projects list     bpd projects list --workspace "My
+    Workspace" --json     bpd projects list -o markdown
   
   Options:
     --workspace TEXT                Filter projects by workspace name.
@@ -262,15 +262,15 @@
     --config FILE                   Path to a TOML config file (overrides layered
                                     discovery).
     --token TEXT                    Py Personal Access Token (overrides
-                                    $PLBP_TOKEN). Never stored.
+                                    $BPD_TOKEN). Never stored.
     --no-input                      Never prompt; fail instead (for scripts/CI).
     -h, --help                      Show this message and exit.
   
   '''
 # ---
-# name: test_help_snapshot[plbp projects]
+# name: test_help_snapshot[bpd projects]
   '''
-  Usage: plbp projects [OPTIONS] COMMAND [ARGS]...
+  Usage: bpd projects [OPTIONS] COMMAND [ARGS]...
   
     List and inspect Py projects.
   
@@ -283,13 +283,13 @@
   
   '''
 # ---
-# name: test_help_snapshot[plbp]
+# name: test_help_snapshot[bpd]
   '''
-  Usage: plbp [OPTIONS] COMMAND [ARGS]...
+  Usage: bpd [OPTIONS] COMMAND [ARGS]...
   
-    plbp — a gh-style CLI for Py.
+    bpd — a gh-style CLI for Py.
   
-    Commands follow a noun-verb shape, e.g. `plbp projects list`. Every command
+    Commands follow a noun-verb shape, e.g. `bpd projects list`. Every command
     supports -o/--output {text,json,markdown}, --json, -v/--verbose, --no-color,
     and --config. Results go to stdout; logs and errors go to stderr.
   

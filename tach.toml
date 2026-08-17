@@ -17,21 +17,21 @@ exclude = [
 ]
 
 [[modules]]
-path = "py_launch_blueprint"
+path = "blueprint_press_dryrun"
 depends_on = []
 
 [[modules]]
-path = "py_launch_blueprint.core"
-depends_on = ["py_launch_blueprint"]
+path = "blueprint_press_dryrun.core"
+depends_on = ["blueprint_press_dryrun"]
 
 [[modules]]
-path = "py_launch_blueprint.composition"
-depends_on = ["py_launch_blueprint.core"]
+path = "blueprint_press_dryrun.composition"
+depends_on = ["blueprint_press_dryrun.core"]
 
 [[modules]]
-path = "py_launch_blueprint.cli"
-depends_on = ["py_launch_blueprint.composition", "py_launch_blueprint.core", "py_launch_blueprint"]
+path = "blueprint_press_dryrun.cli"
+depends_on = ["blueprint_press_dryrun.composition", "blueprint_press_dryrun.core", "blueprint_press_dryrun"]
 
 [[modules]]
-path = "py_launch_blueprint.web"
-depends_on = ["py_launch_blueprint.core", "py_launch_blueprint.composition", "py_launch_blueprint"]
+path = "blueprint_press_dryrun.web"
+depends_on = ["blueprint_press_dryrun.core", "blueprint_press_dryrun.composition", "blueprint_press_dryrun"]

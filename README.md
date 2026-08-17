@@ -1,24 +1,24 @@
 <!-- ITM-081 — badges. Single horizontal row (decided round 23). -->
-[![PyPI version](https://img.shields.io/pypi/v/py-launch-blueprint.svg)](https://pypi.org/project/py-launch-blueprint/)
-[![Python versions](https://img.shields.io/pypi/pyversions/py-launch-blueprint.svg)](https://pypi.org/project/py-launch-blueprint/)
-[![CI](https://github.com/smorinlabs/py-launch-blueprint/actions/workflows/ci.yml/badge.svg)](https://github.com/smorinlabs/py-launch-blueprint/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/smorinlabs/py-launch-blueprint/branch/main/graph/badge.svg)](https://codecov.io/gh/smorinlabs/py-launch-blueprint)
+[![PyPI version](https://img.shields.io/pypi/v/blueprint-press-dryrun.svg)](https://pypi.org/project/blueprint-press-dryrun/)
+[![Python versions](https://img.shields.io/pypi/pyversions/blueprint-press-dryrun.svg)](https://pypi.org/project/blueprint-press-dryrun/)
+[![CI](https://github.com/smorinlabs/blueprint-press-dryrun/actions/workflows/ci.yml/badge.svg)](https://github.com/smorinlabs/blueprint-press-dryrun/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/smorinlabs/blueprint-press-dryrun/branch/main/graph/badge.svg)](https://codecov.io/gh/smorinlabs/blueprint-press-dryrun)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://www.conventionalcommits.org/)
 
-# Py Launch Blueprint: A Production-Ready 🐍 Python Project Template with Integrated Best Practices
- Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
+# Blueprint Press Dryrun: A Production-Ready 🐍 Python Project Template with Integrated Best Practices
+ Blueprint Press Dryrun is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
 
-![Py Launch Blueprint Logo](./assets/images/logos/py_launch_blueprint_logo_100x100.png)
+![Blueprint Press Dryrun Logo](./assets/images/logos/blueprint_press_dryrun_logo_100x100.png)
 
-## Why Choose Py Launch Blueprint?
+## Why Choose Blueprint Press Dryrun?
 
-Py Launch Blueprint eliminates the setup friction in Python projects by providing a production-ready template with carefully curated tools and best practices.
+Blueprint Press Dryrun eliminates the setup friction in Python projects by providing a production-ready template with carefully curated tools and best practices.
 
 ## Full documentation on ReadTheDocs
-- [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
+- [blueprint-press-dryrun Docs](https://blueprint-press-dryrun.readthedocs.io/en/latest/)
 
 ### 🚀 Key Features
 
@@ -35,16 +35,16 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 ## Quick start
 
 ```bash
-git clone https://github.com/smorinlabs/py-launch-blueprint.git
-cd py-launch-blueprint
+git clone https://github.com/smorinlabs/blueprint-press-dryrun.git
+cd blueprint-press-dryrun
 make bootstrap           # level 1 — base toolchain (just + uv); skip if installed
 just setup               # level 2 — dev env, git hooks, hook toolchain
 just check               # full quality pipeline
 ```
 
-Install as a tool: `uvx --from py-launch-blueprint plbp` (uvx needs `--from` because the distribution name differs from the console-script name) or `pip install py-launch-blueprint && plbp`.
+Install as a tool: `uvx --from blueprint-press-dryrun bpd` (uvx needs `--from` because the distribution name differs from the console-script name) or `pip install blueprint-press-dryrun && bpd`.
 
-The [`plbp` noun-verb CLI](EXAMPLECLI.md) documents the template's CLI conventions: global flags, the text/JSON/Markdown output contract, stable exit & error codes, and layered TOML config.
+The [`bpd` noun-verb CLI](EXAMPLECLI.md) documents the template's CLI conventions: global flags, the text/JSON/Markdown output contract, stable exit & error codes, and layered TOML config.
 
 See [AGENTS.md](AGENTS.md) for the canonical command set, [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for the daily workflow, and [docs/RELEASE.md](docs/RELEASE.md) for the release flow. For the exhaustive rationale behind every tool and configuration choice — what each is, why it was chosen, and the value it brings — see [Design Decisions](docs/source/about/design_decisions.md).
 
@@ -52,7 +52,7 @@ See [AGENTS.md](AGENTS.md) for the canonical command set, [.github/CONTRIBUTING.
 
 The blueprint includes an optional REST API (`uv sync --extra web`, `just serve`) with production best practices already baked in: RFC 9457 problem+json errors, `/v1` versioning, pagination, Idempotency-Key replay, Prometheus metrics, opt-in OpenTelemetry tracing, rate limiting, security headers, typed env settings, a committed OpenAPI snapshot with breaking-change CI (oasdiff) and schemathesis fuzzing, generated typed clients, and a production Dockerfile. See [EXAMPLEWEB.md](EXAMPLEWEB.md) for the service walkthrough (the web counterpart of [EXAMPLECLI.md](EXAMPLECLI.md)), the [web service docs](docs/source/web/index.md), the [WEB-xx convention catalog](docs/design/0002-web-api-conventions.md), and [ADR 0013](docs/adr/0013-web-service-best-practices.md) for the design decisions.
 
-**Starting a new project from this template?** If you use Claude Code or any agent that reads `AGENTS.md`, just say *"create a new Python project from py-launch-blueprint"* — the [`new-python-project`](.claude/skills/new-python-project/SKILL.md) skill (Claude Code discovers it in `.claude/skills/`; Codex via the `.agents/skills/` symlink) will walk you through `gh repo create --template`, identity collection, the init rebrand with dry-run preview, and an optional handoff to post-init for publishing/Codecov/ReadTheDocs setup. For humans without an agent: the skill is also a copy-pasteable runbook. After init, work through [`docs/POST_INIT.md`](docs/POST_INIT.md) — the checklist of decisions, secrets, and repo settings to configure. Internal engineering docs (ADRs, design specs, research) live under [`docs/`](docs/README.md).
+**Starting a new project from this template?** If you use Claude Code or any agent that reads `AGENTS.md`, just say *"create a new Python project from blueprint-press-dryrun"* — the [`new-python-project`](.claude/skills/new-python-project/SKILL.md) skill (Claude Code discovers it in `.claude/skills/`; Codex via the `.agents/skills/` symlink) will walk you through `gh repo create --template`, identity collection, the init rebrand with dry-run preview, and an optional handoff to post-init for publishing/Codecov/ReadTheDocs setup. For humans without an agent: the skill is also a copy-pasteable runbook. After init, work through [`docs/POST_INIT.md`](docs/POST_INIT.md) — the checklist of decisions, secrets, and repo settings to configure. Internal engineering docs (ADRs, design specs, research) live under [`docs/`](docs/README.md).
 
 ### 🎯 Perfect For
 Teams and professionals needing maintainable, type-safe Python projects following best practices.
@@ -150,4 +150,4 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 Start your next Python project with confidence, knowing you're building on a foundation of best practices and modern development tools.
 
 ## Full documentation on ReadTheDocs including how to run
-- [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
+- [blueprint-press-dryrun Docs](https://blueprint-press-dryrun.readthedocs.io/en/latest/)

@@ -1,22 +1,22 @@
 # Design Decisions
 
 This is the exhaustive, narrative map of **every deliberate tool, library, and
-configuration choice** in Py Launch Blueprint — what each choice is, why it was
+configuration choice** in Blueprint Press Dryrun — what each choice is, why it was
 made, and what value it brings to the project and to anyone who builds on the
 template.
 
 ## How to read this document
 
-Py Launch Blueprint already keeps three kinds of authoritative engineering
-records (see [`docs/README.md`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/README.md)):
+Blueprint Press Dryrun already keeps three kinds of authoritative engineering
+records (see [`docs/README.md`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/README.md)):
 
-- **ADRs** ([`docs/adr/`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr)) —
+- **ADRs** ([`docs/adr/`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr)) —
   one significant decision each (context → choice → consequences), immutable
   once accepted.
-- **Design specs** ([`docs/design/`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design)) —
+- **Design specs** ([`docs/design/`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design)) —
   normative "how it must behave" specifications, including the `WEB-xx` web-API
   catalog and the `HEX-xx` architecture rules.
-- **Research notes** ([`docs/research/`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/research)) —
+- **Research notes** ([`docs/research/`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/research)) —
   explorations that fed the decisions above.
 
 **This page does not replace those records — it indexes them.** It walks every
@@ -65,7 +65,7 @@ works prevents "works on my machine" upgrades.
 ## 2. Code structure & architecture
 
 ### `src/` layout
-**What** — the package lives at `src/py_launch_blueprint/`, declared via
+**What** — the package lives at `src/blueprint_press_dryrun/`, declared via
 `[tool.uv.build-backend] module-root = "src"`.
 **Why** — the `src/` layout forces tests to run against the *installed* package,
 not the working tree, catching packaging mistakes (missing files, bad imports)
@@ -81,8 +81,8 @@ script. Isolating the core from frameworks keeps the domain testable and lets a
 fork swap or add a front end (CLI today, web tomorrow) without rewriting logic.
 **Value** — adopters inherit a structure that stays maintainable as the project
 grows, instead of a god-module that has to be untangled later.
-**Refs** — [ADR-0017](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0017-hexagonal-core-and-boundary-enforcement.md),
-[design 0005](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0005-hexagonal-architecture-and-enforcement.md) (`HEX-xx`).
+**Refs** — [ADR-0017](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0017-hexagonal-core-and-boundary-enforcement.md),
+[design 0005](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0005-hexagonal-architecture-and-enforcement.md) (`HEX-xx`).
 
 ### Mechanical boundary enforcement with `import-linter`
 **What** — `lint-imports` enforces five contracts: core never imports a
@@ -118,7 +118,7 @@ expose a `.row()` variant for Rich-formatted terminal tables.
 **Why** — one model serves both the machine contract (JSON) and the human view
 (tables) without duplicating field definitions.
 **Value** — JSON output and pretty output can never drift apart.
-**Refs** — [ADR-0010](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0010-rich-row-variant-on-result-models.md).
+**Refs** — [ADR-0010](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0010-rich-row-variant-on-result-models.md).
 
 ---
 
@@ -139,7 +139,7 @@ reproducible lock.
 **Why** — using uv's own backend keeps build and dependency tooling in one
 project, replacing the previous Hatchling + hatch-vcs stack.
 **Value** — one tool, one mental model, fewer moving parts at release time.
-**Refs** — [ADR-0006 (build backend)](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0006-stable-error-codes-hints-crash-log.md)
+**Refs** — [ADR-0006 (build backend)](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0006-stable-error-codes-hints-crash-log.md)
 note in AGENTS.md (ADR-06); ITM-073.
 
 ### PEP 735 dependency-groups, not extras, for tooling
@@ -148,7 +148,7 @@ optionals (`web`, `otel`) are `[project.optional-dependencies]` extras.
 **Why** — dev/doc tooling is not part of the published package's optional
 feature set; PEP 735 groups model "local-only" dependencies correctly and are
 installable with `uv sync --group`, never shipped to PyPI consumers.
-**Value** — `pip install py-launch-blueprint[web]` pulls real features;
+**Value** — `pip install blueprint-press-dryrun[web]` pulls real features;
 `pip install '.[dev]'` is intentionally *not* the path — dev deps stay out of the
 distribution.
 **Refs** — `pyproject.toml`; ITM-063.
@@ -270,7 +270,7 @@ survive contributors' editors.
 ## 5. Type checking
 
 ### `ty` (Astral) in CI
-**What** — `ty check src/py_launch_blueprint/` is the type gate; it runs with
+**What** — `ty check src/blueprint_press_dryrun/` is the type gate; it runs with
 `--extra web` so web imports resolve.
 **Why** — `ty` is a fast Rust-based checker from the makers of Ruff/uv, keeping
 the toolchain coherent and the gate quick. The `--extra web` flag is required so
@@ -360,7 +360,7 @@ interpreter quirks must be proven across OSes and versions.
 YAML file — chosen over the Python `pre-commit` framework to avoid a second
 Python env just for hooks.
 **Value** — quality gates fire automatically with minimal overhead.
-**Refs** — [ADR-0001-era hook decisions](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr) (ADR-01 per AGENTS.md),
+**Refs** — [ADR-0001-era hook decisions](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr) (ADR-01 per AGENTS.md),
 `lefthook.yml`; ITM-021.
 
 ### Three hook stages, fastest-first
@@ -406,12 +406,12 @@ credential, minimizing false alarms.
 `.github/workflows/secret-scan.yml`; ADR-02 (per AGENTS.md), ITM-001/002/031.
 
 ### Secrets never live in config files
-**What** — the API token resolves only from `--token` or `$PLBP_TOKEN`;
+**What** — the API token resolves only from `--token` or `$BPD_TOKEN`;
 `config set/get` operate on non-secret keys only.
 **Why** — config files get committed, shared, and backed up; keeping secrets in
 env/flags only removes the most common leak vector by design.
 **Value** — users can't accidentally commit a token through normal config use.
-**Refs** — [ADR-0002](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0002-no-secrets-in-config-file.md).
+**Refs** — [ADR-0002](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0002-no-secrets-in-config-file.md).
 
 ### `bandit` static security analysis
 **What** — bandit scans `src/` at pre-push and in CI; configured in
@@ -606,7 +606,7 @@ make) and must stay in sync.
 three equal paths to an identical environment meets people where they are.
 **Value** — anyone can provision the canonical toolchain with the tool they
 already use.
-**Refs** — [ADR-0005](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0005-mise-flox-first-class-toolchains.md),
+**Refs** — [ADR-0005](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0005-mise-flox-first-class-toolchains.md),
 `mise.toml`, `.flox/`, `scripts/`.
 
 ### `just` as the command runner
@@ -673,7 +673,7 @@ specs, and explorations, each with its own README and numbering.
 **Why** — these three artifact types have different lifecycles (immutable vs.
 normative vs. exploratory); separating them keeps each coherent.
 **Value** — a clear filing system that this very page indexes.
-**Refs** — [`docs/README.md`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/README.md).
+**Refs** — [`docs/README.md`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/README.md).
 
 ### AGENTS.md / CLAUDE.md / CONTRIBUTING.md hierarchy
 **What** — `AGENTS.md` is the single source of truth for the command surface;
@@ -689,8 +689,8 @@ different sets of instructions.
 
 The web service is optional (`--extra web`) and bakes in REST best practices.
 The full normative catalog is
-[design 0002 (`WEB-xx`)](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0002-web-api-conventions.md)
-and [ADR-0013](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0013-web-service-best-practices.md);
+[design 0002 (`WEB-xx`)](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0002-web-api-conventions.md)
+and [ADR-0013](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0013-web-service-best-practices.md);
 the highlights:
 
 ### FastAPI behind an extra
@@ -730,7 +730,7 @@ reinventing them.
 **Refs** — design 0002; WEB-03/05/10/11/22/23.
 
 ### Typed settings, fail-fast at boot
-**What** — `WebSettings` (pydantic-settings) reads `PLBP_WEB_*` env vars and
+**What** — `WebSettings` (pydantic-settings) reads `BPD_WEB_*` env vars and
 fails at startup on invalid config.
 **Why** — configuration errors should crash immediately and loudly, not surface
 as confusing runtime behaviour.
@@ -764,28 +764,28 @@ request.
 **Why** — sharing one pipeline avoids two divergent logging stacks while still
 giving humans readable logs and machines parseable ones.
 **Value** — consistent, structured logs across both front ends.
-**Refs** — [ADR-0015](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0015-one-logging-pipeline-two-profiles.md),
-[design 0003](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0003-logging-conventions.md); WEB-12.
+**Refs** — [ADR-0015](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0015-one-logging-pipeline-two-profiles.md),
+[design 0003](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0003-logging-conventions.md); WEB-12.
 
 ---
 
 ## 15. CLI conventions
 
 ### Noun-verb command structure
-**What** — the `plbp` CLI is noun-verb (`plbp projects list`), gh-style, with
+**What** — the `bpd` CLI is noun-verb (`bpd projects list`), gh-style, with
 text/JSON/Markdown output, stable exit codes, and layered TOML config.
 **Why** — noun-verb scales to many resources cleanly and matches the mental model
 users already have from `gh`, `kubectl`, etc.
 **Value** — a discoverable, conventional CLI that grows without restructuring.
-**Refs** — [design 0001](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0001-plbp-cli-conventions.md),
-[EXAMPLECLI.md](https://github.com/smorinlabs/py-launch-blueprint/blob/main/EXAMPLECLI.md).
+**Refs** — [design 0001](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0001-bpd-cli-conventions.md),
+[EXAMPLECLI.md](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/EXAMPLECLI.md).
 
 ### Markdown as a third output format
 **What** — alongside text and JSON, the CLI emits Markdown.
 **Why** — Markdown output drops straight into issues, PRs, and docs — a common
 real-world need the base spec omitted.
 **Value** — copy-pasteable results for humans writing reports.
-**Refs** — [ADR-0003](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0003-keep-markdown-output-mode.md).
+**Refs** — [ADR-0003](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0003-keep-markdown-output-mode.md).
 
 ### Stable error codes, hints, and a crash log
 **What** — errors carry stable, append-only codes, actionable hints, and write a
@@ -793,7 +793,7 @@ reproducible crash log; the CLI exposes documented exit codes (0–5).
 **Why** — stable codes let scripts and docs reference errors reliably; hints and
 crash logs make failures self-service to debug.
 **Value** — scriptable, debuggable failure behaviour.
-**Refs** — [ADR-0006](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0006-stable-error-codes-hints-crash-log.md).
+**Refs** — [ADR-0006](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0006-stable-error-codes-hints-crash-log.md).
 
 ### Config degrades to warnings, never crashes
 **What** — invalid config values warn and fall back to defaults rather than
@@ -801,7 +801,7 @@ aborting.
 **Why** — one bad key shouldn't make the whole tool unusable; graceful
 degradation keeps it working while flagging the problem.
 **Value** — resilience to imperfect config.
-**Refs** — [ADR-0004](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0004-config-errors-degrade-to-warnings.md).
+**Refs** — [ADR-0004](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0004-config-errors-degrade-to-warnings.md).
 
 ### Quality-of-life touches
 **What** — did-you-mean suggestions via stdlib `difflib` (ADR-0007), automatic
@@ -812,7 +812,7 @@ a redacting `doctor --bundle` that excludes log contents (ADR-0012).
 merely-functional one, and each was decided deliberately.
 **Value** — a polished, secure, cross-platform user experience.
 **Refs** — ADR-0007/0008/0009/0011/0012 (in
-[`docs/adr/`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr)).
+[`docs/adr/`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr)).
 
 ---
 
@@ -839,7 +839,7 @@ CLA.
 **Why** — a CLA protects the project's ability to relicense and defend its code.
 **Value** — legal clarity for a project meant to be widely adopted.
 **Refs** — `docs/source/contributing/cla/`,
-[CLA tool guide](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/source/tools/cla-assistant.md).
+[CLA tool guide](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/source/tools/cla-assistant.md).
 
 ### Automated contributor recognition
 **What** — a weekly workflow runs `contributors-please` to update the contributor
@@ -861,7 +861,7 @@ setup.
 **Why** — turning a template into your project by hand is error-prone; a
 manifest-driven engine with a preview makes it reliable and reviewable.
 **Value** — `gh repo create --template` → run init → working, rebranded project.
-**Refs** — [design 0004](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0004-template-press-plan.md),
+**Refs** — [design 0004](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0004-template-press-plan.md),
 `init/manifest.toml`.
 
 ### Manifest-drift guard
@@ -932,35 +932,35 @@ format-on-save, type-check, and lint behaviour without manual setup.
 ## 20. Decision records index
 
 The authoritative records behind the decisions above. ADRs and design docs live
-in [`docs/`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs);
+in [`docs/`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs);
 `WEB-xx` and `HEX-xx` are catalogued in their design specs.
 
 | Record | Subject |
 |---|---|
-| [ADR-0001](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0001-app-short-name-plbp.md) | App short name `plbp` (superseded by 0016) |
-| [ADR-0002](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0002-no-secrets-in-config-file.md) | Secrets never in the config file |
-| [ADR-0003](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0003-keep-markdown-output-mode.md) | Markdown as a third output format |
-| [ADR-0004](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0004-config-errors-degrade-to-warnings.md) | Invalid config degrades to warnings |
-| [ADR-0005](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0005-mise-flox-first-class-toolchains.md) | mise & flox as first-class toolchains |
-| [ADR-0006](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0006-stable-error-codes-hints-crash-log.md) | Stable error codes, hints, crash log |
-| [ADR-0007](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0007-did-you-mean-stdlib-difflib.md) | Did-you-mean via stdlib `difflib` |
-| [ADR-0008](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0008-pager-for-long-text-output.md) | Pager for long text output |
-| [ADR-0009](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0009-config-init-and-first-run-hint.md) | Guided `config init` + first-run hint |
-| [ADR-0010](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0010-rich-row-variant-on-result-models.md) | Rich-only row variant on result models |
-| [ADR-0011](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0011-windows-native-paths-xdg-overrides.md) | Windows-native paths, XDG overrides |
-| [ADR-0012](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0012-doctor-bundle-redact-at-collection.md) | `doctor --bundle` redacts at collection |
-| [ADR-0013](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0013-web-service-best-practices.md) | Web service best practices (`WEB-xx`) |
-| [ADR-0014](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0014-repo-simplification-batch.md) | Repo simplification batch |
-| [ADR-0015](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0015-one-logging-pipeline-two-profiles.md) | One logging pipeline, two profiles |
-| [ADR-0016](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0016-app-short-name-placeholder.md) | App short name as obvious placeholder |
-| [ADR-0017](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr/0017-hexagonal-core-and-boundary-enforcement.md) | Hexagonal core + boundary enforcement |
-| [Design 0001](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0001-plbp-cli-conventions.md) | CLI conventions |
-| [Design 0002](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0002-web-api-conventions.md) | Web API conventions (`WEB-xx`) |
-| [Design 0003](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0003-logging-conventions.md) | Logging conventions |
-| [Design 0004](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0004-template-press-plan.md) | Template Press (init engine) |
-| [Design 0005](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design/0005-hexagonal-architecture-and-enforcement.md) | Hexagonal architecture (`HEX-xx`) |
+| [ADR-0001](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0001-app-short-name-bpd.md) | App short name `bpd` (superseded by 0016) |
+| [ADR-0002](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0002-no-secrets-in-config-file.md) | Secrets never in the config file |
+| [ADR-0003](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0003-keep-markdown-output-mode.md) | Markdown as a third output format |
+| [ADR-0004](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0004-config-errors-degrade-to-warnings.md) | Invalid config degrades to warnings |
+| [ADR-0005](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0005-mise-flox-first-class-toolchains.md) | mise & flox as first-class toolchains |
+| [ADR-0006](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0006-stable-error-codes-hints-crash-log.md) | Stable error codes, hints, crash log |
+| [ADR-0007](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0007-did-you-mean-stdlib-difflib.md) | Did-you-mean via stdlib `difflib` |
+| [ADR-0008](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0008-pager-for-long-text-output.md) | Pager for long text output |
+| [ADR-0009](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0009-config-init-and-first-run-hint.md) | Guided `config init` + first-run hint |
+| [ADR-0010](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0010-rich-row-variant-on-result-models.md) | Rich-only row variant on result models |
+| [ADR-0011](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0011-windows-native-paths-xdg-overrides.md) | Windows-native paths, XDG overrides |
+| [ADR-0012](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0012-doctor-bundle-redact-at-collection.md) | `doctor --bundle` redacts at collection |
+| [ADR-0013](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0013-web-service-best-practices.md) | Web service best practices (`WEB-xx`) |
+| [ADR-0014](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0014-repo-simplification-batch.md) | Repo simplification batch |
+| [ADR-0015](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0015-one-logging-pipeline-two-profiles.md) | One logging pipeline, two profiles |
+| [ADR-0016](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0016-app-short-name-placeholder.md) | App short name as obvious placeholder |
+| [ADR-0017](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr/0017-hexagonal-core-and-boundary-enforcement.md) | Hexagonal core + boundary enforcement |
+| [Design 0001](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0001-bpd-cli-conventions.md) | CLI conventions |
+| [Design 0002](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0002-web-api-conventions.md) | Web API conventions (`WEB-xx`) |
+| [Design 0003](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0003-logging-conventions.md) | Logging conventions |
+| [Design 0004](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0004-template-press-plan.md) | Template Press (init engine) |
+| [Design 0005](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design/0005-hexagonal-architecture-and-enforcement.md) | Hexagonal architecture (`HEX-xx`) |
 
 For the conventions the maintainer follows when writing new records, see the
-READMEs in [`docs/adr/`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/adr),
-[`docs/design/`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/design),
-and [`docs/research/`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/docs/research).
+READMEs in [`docs/adr/`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/adr),
+[`docs/design/`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/design),
+and [`docs/research/`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/docs/research).

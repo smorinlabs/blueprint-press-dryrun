@@ -1,11 +1,11 @@
 ---
 name: new-python-project
-description: Use when bootstrapping a new Python repo, project, CLI, package, script, or uv project from py-launch-blueprint. Ask whether the user wants the opinionated template bootstrap or a minimal setup before running commands.
+description: Use when bootstrapping a new Python repo, project, CLI, package, script, or uv project from blueprint-press-dryrun. Ask whether the user wants the opinionated template bootstrap or a minimal setup before running commands.
 ---
 
 # new-python-project
 
-Bootstrap a fresh Python project from `smorinlabs/py-launch-blueprint`. This
+Bootstrap a fresh Python project from `smorinlabs/blueprint-press-dryrun`. This
 skill orchestrates the entire path from "I want a new project" to "the repo
 exists on GitHub, is rebranded with the user's identity, and the initial
 commit is pushed" — typically 60–90 seconds end-to-end.
@@ -22,7 +22,7 @@ specific actionable prompt — never a surprise.
 ## When to invoke vs. when not to
 
 **Invoke when**: the user wants a brand new project derived from this
-template. They don't need to say "py-launch-blueprint" explicitly — phrases
+template. They don't need to say "blueprint-press-dryrun" explicitly — phrases
 like "new Python project from this", "scaffold a project", "start a fresh
 project using this template" all qualify.
 
@@ -47,13 +47,13 @@ it asks before acting — that's the whole filter-after-trigger contract.
 Ask exactly one question, with this shape (adapt phrasing to the
 conversation; do not invent extra options):
 
-> "I can bootstrap this as a full **py-launch-blueprint** project — uv,
+> "I can bootstrap this as a full **blueprint-press-dryrun** project — uv,
 > ruff, lefthook, CI workflows, release-please, OIDC publishing, the whole
 > production-quality setup. Or set it up minimally (just `uv init`, no
 > opinions). The template adds significant tooling; great for projects
 > you'll maintain long-term, overkill for quick throwaway scripts.
 >
-> **Use the py-launch-blueprint template?** [Y/n]"
+> **Use the blueprint-press-dryrun template?** [Y/n]"
 
 - **If yes** → continue to Step 1 (preconditions). The user opted in;
   proceed through the rest of the runbook.
@@ -70,7 +70,7 @@ conversation; do not invent extra options):
   All optional via post-init." Then re-ask the Y/n question.
 
 This step is **never skipped**, even when the user's initial prompt
-explicitly mentions py-launch-blueprint. The confirmation is cheap (one
+explicitly mentions blueprint-press-dryrun. The confirmation is cheap (one
 question, one keypress) and the cost of bootstrapping the wrong way is
 high (a half-rebranded project the user has to manually fix).
 
@@ -168,7 +168,7 @@ target directory:
 ```bash
 cd "$(dirname "<target-dir>")"
 gh repo create "<owner>/<repo-name>" \
-    --template smorinlabs/py-launch-blueprint \
+    --template smorinlabs/blueprint-press-dryrun \
     --<visibility> \
     --clone
 # clone lands at ./<repo-name>; if your target dir name differs, `mv` it.
@@ -176,7 +176,7 @@ gh repo create "<owner>/<repo-name>" \
 
 This creates the repo on GitHub, clones it locally, and configures `origin`
 correctly. After this completes, the user has a fresh repo with the
-blueprint's identity (`py_launch_blueprint`, `py-launch-blueprint`, etc.) —
+blueprint's identity (`blueprint_press_dryrun`, `blueprint-press-dryrun`, etc.) —
 `init` will rebrand it next. Note: template generation is async on GitHub's
 side; if the clone is empty or warns, wait a few seconds and retry
 `gh repo clone <owner>/<repo-name> <target-dir>`.
@@ -243,7 +243,7 @@ user needs to know something failed.
 
 ```bash
 git add -A
-git commit -m "chore: initialize <repo-name> from py-launch-blueprint"
+git commit -m "chore: initialize <repo-name> from blueprint-press-dryrun"
 git push -u origin main
 ```
 
@@ -346,7 +346,7 @@ deferred to other tools/skills:
 
 This skill assumes:
 
-- `smorinlabs/py-launch-blueprint` is a valid GitHub template repository
+- `smorinlabs/blueprint-press-dryrun` is a valid GitHub template repository
   (the "Template repository" toggle in repo settings is on)
 - The local clone has `init/init.py`, `init/init_doctor.py`, and
   `init/post_init.py`, runnable via `uv run` (the `Justfile` recipes

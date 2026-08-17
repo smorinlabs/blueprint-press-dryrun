@@ -32,7 +32,7 @@ _CURATED_FILES = (
     "docs/source/conf.py",
 )
 _CURATED_DIRS = (
-    "py_launch_blueprint",
+    "blueprint_press_dryrun",
     "init",
 )
 
@@ -118,7 +118,7 @@ def build_fixture(tmp_path: Path, mode: str) -> Path:
             "remote",
             "add",
             "origin",
-            "git@github.com:alice/py-launch-blueprint.git",
+            "git@github.com:alice/blueprint-press-dryrun.git",
             cwd=proj,
         )
 

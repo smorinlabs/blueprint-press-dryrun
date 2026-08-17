@@ -1,7 +1,7 @@
 """CHANGELOG reset on init — the root-cause fix for the CHANGELOG identity leak.
 
 The blueprint's own CHANGELOG accumulates release history naming the blueprint
-(`plbp`, `smorinlabs`, compare-URLs). Rewriting those into a fork's identity
+(`bpd`, `smorinlabs`, compare-URLs). Rewriting those into a fork's identity
 would graft a fabricated history; instead `init` resets the file to a stub.
 """
 
@@ -23,10 +23,10 @@ def test_manifest_resets_changelog_to_stub() -> None:
 
 def test_apply_reset_overwrites_then_is_idempotent(tmp_path: Path) -> None:
     f = tmp_path / "CHANGELOG.md"
-    f.write_text("# Changelog\n\n## [2.0.0] rename to plbp\n- smorinlabs/py-…\n")
+    f.write_text("# Changelog\n\n## [2.0.0] rename to bpd\n- smorinlabs/py-…\n")
     op = ResetOp(path="CHANGELOG.md", stub="# Changelog\n")
     assert apply_reset(op, root=tmp_path) is True
-    assert f.read_text() == "# Changelog\n"  # blueprint history (plbp) discarded
+    assert f.read_text() == "# Changelog\n"  # blueprint history (bpd) discarded
     assert apply_reset(op, root=tmp_path) is False  # already the stub → no change
 
 

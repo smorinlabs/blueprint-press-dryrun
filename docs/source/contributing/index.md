@@ -1,6 +1,6 @@
-# Contributing to Py Launch Blueprint
+# Contributing to Blueprint Press Dryrun
 
-Thank you for your interest in contributing to Py Launch Blueprint! We welcome contributions from the community and appreciate your efforts in improving the project.
+Thank you for your interest in contributing to Blueprint Press Dryrun! We welcome contributions from the community and appreciate your efforts in improving the project.
 
 ## How to Contribute
 
@@ -40,7 +40,7 @@ Before your contributions can be accepted, you must sign a **Contributor License
 When you open a pull request, the **CLA Assistant Bot** will check if you've signed the CLA. If not, it will provide a link to complete the process.
 
 ## Tracking Contributors
-This project uses [`contributors-please`](https://github.com/smorinlabs/contributors-please-action) to track contributors automatically in [`CONTRIBUTORS.md`](https://github.com/smorinlabs/py-launch-blueprint/blob/main/CONTRIBUTORS.md). The list updates when:
+This project uses [`contributors-please`](https://github.com/smorinlabs/contributors-please-action) to track contributors automatically in [`CONTRIBUTORS.md`](https://github.com/smorinlabs/blueprint-press-dryrun/blob/main/CONTRIBUTORS.md). The list updates when:
 1. A push is made to the main branch.
 2. A pull request is merged.
 3. Manually, using the following command:

@@ -4,7 +4,7 @@ The drift checker must flag a file that contains an identity value which is not
 listed under THAT value's own ``[[replace]]`` block. The flat-union predecessor
 passed such a file (it was covered under *some* other field) and a fork would
 then ship half-renamed — e.g. a file under ``app_name`` but not
-``app_name_upper`` keeps a literal ``PLBP`` after init.
+``app_name_upper`` keeps a literal ``BPD`` after init.
 """
 
 from __future__ import annotations
@@ -34,40 +34,40 @@ def _p(rel: str) -> Path:
 
 
 def test_covered_by_value_is_per_value() -> None:
-    # a.py is listed under app_name (plbp) and app_name_upper (PLBP);
+    # a.py is listed under app_name (bpd) and app_name_upper (BPD);
     # b.py only under app_name.
     m = Manifest(
         replaces=(
             ReplaceOp(
-                field="app_name", current=("plbp",), files=("a.py", "b.py"), mode="text"
+                field="app_name", current=("bpd",), files=("a.py", "b.py"), mode="text"
             ),
             ReplaceOp(
-                field="app_name_upper", current=("PLBP",), files=("a.py",), mode="text"
+                field="app_name_upper", current=("BPD",), files=("a.py",), mode="text"
             ),
         )
     )
     cov = drift.covered_by_value(m)
-    assert cov["plbp"] == {_p("a.py"), _p("b.py")}
-    assert cov["PLBP"] == {_p("a.py")}  # b.py is NOT covered for PLBP
+    assert cov["bpd"] == {_p("a.py"), _p("b.py")}
+    assert cov["BPD"] == {_p("a.py")}  # b.py is NOT covered for BPD
 
 
 def test_half_covered_file_is_flagged() -> None:
-    # The regression: b.py contains both `plbp` and `PLBP` but is only covered
-    # for `plbp`. The uppercase env-prefix would survive a rebrand.
-    coverage = {"plbp": {_p("b.py")}}  # PLBP intentionally uncovered for b.py
-    text = "cmd = plbp\nenv = PLBP_TOKEN\n"
-    assert drift.uncovered_values(text, _p("b.py"), coverage) == ["PLBP"]
+    # The regression: b.py contains both `bpd` and `BPD` but is only covered
+    # for `bpd`. The uppercase env-prefix would survive a rebrand.
+    coverage = {"bpd": {_p("b.py")}}  # BPD intentionally uncovered for b.py
+    text = "cmd = bpd\nenv = BPD_TOKEN\n"
+    assert drift.uncovered_values(text, _p("b.py"), coverage) == ["BPD"]
 
 
 def test_fully_covered_file_has_no_leak() -> None:
-    coverage = {"plbp": {_p("a.py")}, "PLBP": {_p("a.py")}}
-    assert drift.uncovered_values("plbp / PLBP", _p("a.py"), coverage) == []
+    coverage = {"bpd": {_p("a.py")}, "BPD": {_p("a.py")}}
+    assert drift.uncovered_values("bpd / BPD", _p("a.py"), coverage) == []
 
 
 def test_value_absent_from_file_is_not_flagged() -> None:
-    # No coverage for PLBP at all, but the file doesn't contain it → no leak.
+    # No coverage for BPD at all, but the file doesn't contain it → no leak.
     assert (
-        drift.uncovered_values("just plbp here", _p("a.py"), {"plbp": {_p("a.py")}})
+        drift.uncovered_values("just bpd here", _p("a.py"), {"bpd": {_p("a.py")}})
         == []
     )
 

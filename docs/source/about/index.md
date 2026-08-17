@@ -1,6 +1,6 @@
-# About Py Launch Blueprint
+# About Blueprint Press Dryrun
 
-Welcome to Py Launch Blueprint! This section covers the project's purpose, philosophy, and key features, giving you a clear understanding of what it offers.
+Welcome to Blueprint Press Dryrun! This section covers the project's purpose, philosophy, and key features, giving you a clear understanding of what it offers.
 
 
 ```{toctree}

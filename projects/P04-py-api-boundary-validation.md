@@ -102,7 +102,7 @@ Confirmed 2026-07-19, before implementation:
       `(+1 more)` but never echoes the planted token.
 - [x] [P04-T05] Point P03-F01 at this project as its successor (`[>]`).
 - [x] [P04-T06] Register the project file in `init/manifest.toml` under
-      `py_launch_blueprint`, so a fork's `just init` rewrites it rather than
+      `blueprint_press_dryrun`, so a fork's `just init` rewrites it rather than
       shipping half-renamed (caught by `check_manifest_drift.py`, as designed).
 - [x] [P04-TS04] PR opened, review threads resolved, merged — #483 (stacked on
       #482, retargeted to `main` on its merge). Six review threads from four
@@ -133,7 +133,7 @@ purely stylistic and pointed away from the dominant convention.
 
 ## Automated Verification
 
-- `uv run --extra web ty check src/py_launch_blueprint/` passes.
+- `uv run --extra web ty check src/blueprint_press_dryrun/` passes.
 - `just check` green (the port-contract suite in
   `tests/core/test_projects_repository_contract.py` must stay green unchanged —
   it is the substitutability proof that the fake and the real adapter agree).

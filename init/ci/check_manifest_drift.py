@@ -9,7 +9,7 @@ For every value in BLUEPRINT_IDENTITY, every repo file that contains it must be
 listed in a `[[replace]]` block whose `current` includes that value (or be a
 `[[remove]]`/`[[regenerate]]` path, or live in the bootstrap init/ tree). This
 is **per-field**, mirroring the engine: a file listed under `app_name` but not
-`app_name_upper` that contains `PLBP` passes a flat-union check yet ships
+`app_name_upper` that contains `BPD` passes a flat-union check yet ships
 half-renamed. `[[rename]]` sources are content-checked too — a rename moves the
 filename, not the identity strings inside the file.
 
@@ -61,7 +61,7 @@ def uncovered_values(
 
     Per-field: a value is "covered" only if ``path`` is listed under that
     value's own ``[[replace]]`` block. A file covered under ``app_name`` but not
-    ``app_name_upper`` that contains ``PLBP`` is reported here — the flat-union
+    ``app_name_upper`` that contains ``BPD`` is reported here — the flat-union
     predecessor missed exactly this case.
     """
     return [

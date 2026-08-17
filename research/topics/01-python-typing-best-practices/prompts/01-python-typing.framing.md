@@ -17,7 +17,7 @@ Stack (always in scope):
 - Python **3.12+** (`requires-python = ">=3.12"`, ruff `target-version = py312`).
 - **uv** for env/deps; **ruff** lint+format; **ty** (Astral) is the CI
   type-check authority per **ADR-03**, run as
-  `uv run --extra web ty check src/py_launch_blueprint/`.
+  `uv run --extra web ty check src/blueprint_press_dryrun/`.
 - **Pyright `strict`** is configured (`[tool.pyright]`) but drives the *IDE
   only*; CI does not gate on it.
 - Frameworks: **FastAPI** (`web/`), a **CLI** (`cli/`), likely **Pydantic**

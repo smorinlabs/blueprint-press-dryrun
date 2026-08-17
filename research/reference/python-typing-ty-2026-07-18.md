@@ -112,7 +112,7 @@ invalid-named-tuple-override = "error"
 
 # error-on-warning: LEAVE DEFAULT. Warnings exit 0 in 0.0.39; setting it true
 # would gate `deprecated`. No [tool.ty.terminal] / [[overrides]] block needed —
-# CI runs `ty check src/py_launch_blueprint/` only, so a tests/** override is inert.
+# CI runs `ty check src/blueprint_press_dryrun/` only, so a tests/** override is inert.
 ```
 
 ~~Optional stricter knob: `strict-literal-narrowing`~~ — **not supported in

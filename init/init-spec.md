@@ -1,4 +1,4 @@
-# py-launch-blueprint — Self-Setup System
+# blueprint-press-dryrun — Self-Setup System
 
 **Analysis & implementation plan for `init`, `init-doctor`, and the `just` guard.**
 
@@ -6,7 +6,7 @@
 
 ## 1. Summary
 
-When a developer creates a repo from the `py-launch-blueprint` GitHub template, the
+When a developer creates a repo from the `blueprint-press-dryrun` GitHub template, the
 project still carries the blueprint's identity (package name, repo name, CLI command,
 copyright holder, URLs). This system makes the new project **guide the developer through
 re-branding itself**, deterministically, and lets them verify setup state at any time.
@@ -24,9 +24,9 @@ removed in one step once it has done its job:
 
 ## 2. Analysis — current state of the repo
 
-Inventory of `github.com/smorinlabs/py-launch-blueprint` (fetched and verified):
+Inventory of `github.com/smorinlabs/blueprint-press-dryrun` (fetched and verified):
 
-- **Flat package layout.** The package is `py_launch_blueprint/` at the repo root (not
+- **Flat package layout.** The package is `blueprint_press_dryrun/` at the repo root (not
   `src/`), with `uv_build` configured as `module-root = ""`. Renaming the package means
   renaming a *root* directory.
 - **Identity strings: 209 occurrences across 57 files** (rescan, post-URL-cleanup; the
@@ -35,8 +35,8 @@ Inventory of `github.com/smorinlabs/py-launch-blueprint` (fetched and verified):
 
   | Value | Occurrences | Files |
   |---|---:|---:|
-  | `py_launch_blueprint` (dist + import name) | 83 | 29 |
-  | `py-launch-blueprint` (repo name) | 72 | 25 |
+  | `blueprint_press_dryrun` (dist + import name) | 83 | 29 |
+  | `blueprint-press-dryrun` (repo name) | 72 | 25 |
   | `Steve Morin` (author) | 25 | 23 |
   | `steve.morin@gmail.com` (author email) | 3 | 3 |
   | `smorinlabs` (GitHub owner) | 33 | 15 |
@@ -50,7 +50,7 @@ Inventory of `github.com/smorinlabs/py-launch-blueprint` (fetched and verified):
   existed earlier and was resolved on the `feat/init-script` branch; it is the kind of
   drift the doctor's owner-consistency check is designed to flag in downstream projects.)*
 - **`CHANGELOG.md` accumulates the blueprint's own release history** (compare-URLs,
-  `plbp`, `smorinlabs`), so `init` **resets it to a stub** via `[[reset]]` rather than
+  `bpd`, `smorinlabs`), so `init` **resets it to a stub** via `[[reset]]` rather than
   identity-rewriting it — a fork starts its own changelog, repopulated by release-please.
 - **`init/` already exists** with `setup-github-environments.sh` and
   `setup-pypi-publishing.sh`; the new system co-locates here.
@@ -132,8 +132,8 @@ POSIX shell — no Python, no venv. Both tiers share four **skip conditions**: t
 `init/.blueprint-initialized` exists, the press receipt `press/press-receipt.toml` exists
 (the repo was rebranded by the external template-press engine), the contribution sentinel
 `init/.blueprint-contributor` exists, or `git remote get-url origin` (normalized for
-SSH/HTTPS/`.git`) matches the original `smorinlabs/py-launch-blueprint` (or its
-pre-org-move alias `smorin/py-launch-blueprint`, kept so clones from before the
+SSH/HTTPS/`.git`) matches the original `smorinlabs/blueprint-press-dryrun` (or its
+pre-org-move alias `smorin/blueprint-press-dryrun`, kept so clones from before the
 org move still get a silent guard).
 
 **Tier 1 — universal discovery warning.** A single parse-time variable near the top of
@@ -166,7 +166,7 @@ hatch always works; `just --list` / `--help` are builtins and unaffected.
 **Selection criterion for the Tier-2 subset:** a recipe earns a hard block only if running
 it before `init` is *wrong and externally consequential*. Everything else (`test`,
 `lint`, `typecheck`, `format`, `check`, `install-*`, `hooks-run`, `debug-info`,
-`verify-commits`, `dev`) operates on code that still works as `py_launch_blueprint` — it
+`verify-commits`, `dev`) operates on code that still works as `blueprint_press_dryrun` — it
 is warned by Tier 1 but not blocked.
 
 | Invocation | Tier 1 banner | Tier 2 block |
@@ -187,8 +187,8 @@ scopes stay valid; rename last).
 ```toml
 [[replace]]
 field   = "package_name"
-current = ["py_launch_blueprint"]          # all variants enumerated
-files   = ["pyproject.toml", "py_launch_blueprint/__init__.py", ...]
+current = ["blueprint_press_dryrun"]          # all variants enumerated
+files   = ["pyproject.toml", "blueprint_press_dryrun/__init__.py", ...]
 mode    = "structured"                      # toml key edit  |  "text" for prose
 
 [[replace]]
@@ -198,11 +198,11 @@ files   = ["pyproject.toml", "docs/source/conf.py", ...]
 mode    = "structured"
 
 [[rename]]
-from = "py_launch_blueprint/"               # package directory
+from = "blueprint_press_dryrun/"               # package directory
 to   = "{package_name}/"
 
 [[rename]]
-from = "docs/source/_static/py_launch_blueprint_logo_100x100.png"
+from = "docs/source/_static/blueprint_press_dryrun_logo_100x100.png"
 to   = "docs/source/_static/{package_name}_logo_100x100.png"
 
 [[remove]]
@@ -265,7 +265,7 @@ hook installation). It never touches identity/migration content.
 
 One thin workflow calling `init/ci/` scripts:
 - **Marker absence** — fails if `init/.blueprint-initialized` exists, **scoped to a repo
-  named `py-launch-blueprint`** so it is a no-op on every downstream project (Q2a Option
+  named `blueprint-press-dryrun`** so it is a no-op on every downstream project (Q2a Option
   1). `init` also deletes this workflow during migration (Q2a Option 2) — layered defense.
 - **Guard wiring lint** — the Tier-1 `_blueprint_notice` variable is present and every
   Tier-2 subset recipe declares `_guard` (same logic as `init-doctor`).
@@ -287,7 +287,7 @@ exercises one fixture per mode.
 | 1 | GitHub **"Use this template"** button | `<owner>/<new-repo>` (not the blueprint) | clean, single initial commit | Normal path — guard does **not** skip; `init` proceeds. |
 | 2 | **`gh repo create --template`** | same as #1 | same as #1 | Indistinguishable from #1 to the script. |
 | 3 | **Clone + `rm -rf .git` + `git init`** | **unset** until the user adds a remote | fresh single commit, no remotes | `init` proceeds with no origin; `init-doctor` reports `warn: origin not configured`; the guard's origin check returns empty and **does not skip**. |
-| 4 | **Fork** | `<user>/py-launch-blueprint` — repo name collides, owner differs | full blueprint history preserved | Guard's skip-on-origin compares **owner + name**, not name alone — a fork must **not** skip. The contribution sentinel (`init/.blueprint-contributor`) is the documented escape hatch for contributors who fork to PR upstream. |
+| 4 | **Fork** | `<user>/blueprint-press-dryrun` — repo name collides, owner differs | full blueprint history preserved | Guard's skip-on-origin compares **owner + name**, not name alone — a fork must **not** skip. The contribution sentinel (`init/.blueprint-contributor`) is the documented escape hatch for contributors who fork to PR upstream. |
 | 5 | **ZIP download** (no Git) | none | **no `.git` directory** | `init` refuses with an actionable message ("run `git init` first; git is the undo button"). `--allow-dirty` does **not** override the missing-`.git` precondition — the dirty-tree check presupposes a tree exists. |
 
 **Why this matters for tests:** the skip-condition logic and the precondition checks
@@ -340,7 +340,7 @@ Write `init/README.md`.
   `docs/source/github-templates.md`) when populating `[[remove]]`.
 - **Lockfiles** — `uv.lock` and `bun.lock` embed the project name; `init` must regenerate
   them (`uv lock`), never hand-edit. Already in the Phase-2 finalize step.
-- **`[project.scripts]` entry point** — `py_launch_blueprint.cli.main:cli`: the
-  `py_launch_blueprint` segment changes with the package rename; `cli.main:cli` stays.
+- **`[project.scripts]` entry point** — `blueprint_press_dryrun.cli.main:cli`: the
+  `blueprint_press_dryrun` segment changes with the package rename; `cli.main:cli` stays.
 - **The "Py" pseudo-placeholder** in the description / `__init__.py` docstring is treated
   as the free-text *description* field, not a distinct token.

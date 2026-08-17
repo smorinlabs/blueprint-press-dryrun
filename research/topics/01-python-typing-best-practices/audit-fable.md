@@ -1,7 +1,7 @@
 # Type audit — Fable lens (whole-codebase type-design judgment)
 
 - **Date**: 2026-07-18
-- **Scope**: `src/py_launch_blueprint/` (all 40 files read; ~4,530 LOC)
+- **Scope**: `src/blueprint_press_dryrun/` (all 40 files read; ~4,530 LOC)
 - **Grounding**: `research/reference/python-typing-ty-2026-07-18.md` (rubric §5,
   replacement table §2) + `research/topics/01-python-typing-best-practices/baseline.md`
 - **Mode**: read-only; findings only
@@ -24,7 +24,7 @@ verdict), plus one blessing bundle (F13).
 ## Findings (ranked by severity × leverage)
 
 ### F1 — `DoctorCheck.status` is stringly-typed with the Literal spelled in a comment
-- **Where**: `src/py_launch_blueprint/core/models.py:139`
+- **Where**: `src/blueprint_press_dryrun/core/models.py:139`
 - **Category**: stringly-typed · **Severity**: high · **Effort**: trivial
 - **Current**:
   ```python
@@ -76,7 +76,7 @@ verdict), plus one blessing bundle (F13).
 - **Verdict**: **EXECUTE-NOW-SAFE**
 
 ### F3 — `PyApiProjectsRepository._request(**kwargs: Any)` is wider than every call site
-- **Where**: `src/py_launch_blueprint/core/adapters/py_api.py:56-63`, plus `:106`
+- **Where**: `src/blueprint_press_dryrun/core/adapters/py_api.py:56-63`, plus `:106`
 - **Category**: any-boundary · **Severity**: med · **Effort**: small
 - **Current**:
   ```python
@@ -104,8 +104,8 @@ verdict), plus one blessing bundle (F13).
 - **Verdict**: **EXECUTE-NOW-SAFE**
 
 ### F4 — `coerce_value` / `set_config_value` return `Any` that leaks into the CLI layer
-- **Where**: `src/py_launch_blueprint/core/settings.py:105`,
-  `src/py_launch_blueprint/core/config.py:239`, `config.py:186`
+- **Where**: `src/blueprint_press_dryrun/core/settings.py:105`,
+  `src/blueprint_press_dryrun/core/config.py:239`, `config.py:186`
 - **Category**: dict-str-any / leaking-Any · **Severity**: med · **Effort**: small
 - **Current**:
   ```python
@@ -137,7 +137,7 @@ verdict), plus one blessing bundle (F13).
 - **Verdict**: **EXECUTE-NOW-SAFE**
 
 ### F5 — Idempotency store contract is positional tuples documented by comments
-- **Where**: `src/py_launch_blueprint/web/idempotency.py:46-49` (`_Entry`),
+- **Where**: `src/blueprint_press_dryrun/web/idempotency.py:46-49` (`_Entry`),
   `:64` and `:76` (cache key `tuple[str, str, str, str]`)
 - **Category**: protocol-design · **Severity**: med · **Effort**: small
 - **Current**:
@@ -215,7 +215,7 @@ verdict), plus one blessing bundle (F13).
   the small guard restructure)
 
 ### F7 — `/healthz` publishes an untyped `dict[str, str]` contract
-- **Where**: `src/py_launch_blueprint/web/app.py:143-150`
+- **Where**: `src/blueprint_press_dryrun/web/app.py:143-150`
 - **Category**: dict-str-any (contract) · **Severity**: med · **Effort**: small
 - **Current**:
   ```python
@@ -243,7 +243,7 @@ verdict), plus one blessing bundle (F13).
 - **Verdict**: **EXECUTE-NOW-SAFE**
 
 ### F8 — Py API payload narrowing is manual `.get()` chains over `dict[str, Any]`
-- **Where**: `src/py_launch_blueprint/core/adapters/py_api.py:128-135`
+- **Where**: `src/blueprint_press_dryrun/core/adapters/py_api.py:128-135`
   (`_to_project(item: dict[str, Any])`), `:90-93` (`_extract_error` payload)
 - **Category**: any-boundary · **Severity**: med · **Effort**: moderate
 - **Current**:
@@ -278,7 +278,7 @@ verdict), plus one blessing bundle (F13).
   if the current tolerance is intentional, option 1 alone is fine)
 
 ### F9 — `cli/options.py` decorators: keep the `cast` — ParamSpec does NOT fit (anti-churn verdict)
-- **Where**: `src/py_launch_blueprint/cli/options.py:154,231-234` and `:257-262`
+- **Where**: `src/blueprint_press_dryrun/cli/options.py:154,231-234` and `:257-262`
 - **Category**: decorator-typing · **Severity**: low · **Effort**: n/a
 - **Current**: `def global_options[F: Callable[..., Any]](func: F) -> F:` with
   `cast(F, decorated)`; same shape for `mutation_options`.
@@ -298,7 +298,7 @@ verdict), plus one blessing bundle (F13).
 - **Verdict**: **NO CHANGE** (bless; record so future audits don't churn it)
 
 ### F10 — `OutputMode` dispatch has no exhaustiveness guard
-- **Where**: `src/py_launch_blueprint/cli/output.py:150-160` (`render`) and
+- **Where**: `src/blueprint_press_dryrun/cli/output.py:150-160` (`render`) and
   `:195-212` (`_render_to_file`)
 - **Category**: exhaustiveness · **Severity**: low · **Effort**: small
 - **Current**: `if JSON … elif MARKDOWN … else` (text is the implicit fallback).
@@ -312,7 +312,7 @@ verdict), plus one blessing bundle (F13).
 - **Verdict**: **FOLLOW-UP** (worthwhile, but it is churn with no present bug)
 
 ### F11 — structlog processors: use the library's own alias for the `Any`
-- **Where**: `src/py_launch_blueprint/core/logging.py:128,144` (`logger: Any`)
+- **Where**: `src/blueprint_press_dryrun/core/logging.py:128,144` (`logger: Any`)
 - **Category**: any-boundary (cosmetic) · **Severity**: low · **Effort**: trivial
 - **Current**: `def _redact_sensitive(logger: Any, method_name: str, event_dict: EventDict)`
 - **Proposed**: `from structlog.typing import WrappedLogger` →
@@ -326,7 +326,7 @@ verdict), plus one blessing bundle (F13).
 - **Verdict**: **EXECUTE-NOW-SAFE**
 
 ### F12 — Shell-completion object annotated `Any` where inference suffices
-- **Where**: `src/py_launch_blueprint/cli/main.py:100`
+- **Where**: `src/blueprint_press_dryrun/cli/main.py:100`
 - **Category**: any-boundary · **Severity**: low · **Effort**: trivial
 - **Current**: `comp: Any = comp_cls(cli, {}, _PROG_NAME, _COMPLETE_VAR)`
 - **Proposed**: drop the annotation (let ty infer `ShellComplete` from
@@ -400,7 +400,7 @@ verdict), plus one blessing bundle (F13).
 | Tier 2 → error (`ineffective-final`, `invalid-enum-member-annotation`, `invalid-named-tuple-override`) | **AGREE** | No current violations; F5 introduces NamedTuples, making the third rule non-vacuous. |
 | Tier 3 `deprecated = "error"` | **AGREE with leaf's hold-back** | Keep at `warn` — a template repo must not let a dependency's deprecation fail every fork's CI. |
 | `error-on-warning = true` explicit | **AGREE** | Set it explicitly per caveat C1, and do the leaf's own empirical confirm (inject a `deprecated` call, observe exit code) in the same PR. |
-| `[[tool.ty.overrides]]` for `tests/**` | **MODIFY** | Currently dead weight: CI runs `ty check src/py_launch_blueprint/` only, so tests never enter scope. Either expand the check scope to `tests/` *and* add the override together, or drop the block until then. |
+| `[[tool.ty.overrides]]` for `tests/**` | **MODIFY** | Currently dead weight: CI runs `ty check src/blueprint_press_dryrun/` only, so tests never enter scope. Either expand the check scope to `tests/` *and* add the override together, or drop the block until then. |
 | ruff `TC` | **AGREE, with a mandatory caveat the leaf understates** | Before enabling, configure `[tool.ruff.lint.flake8-type-checking] runtime-evaluated-base-classes = ["pydantic.BaseModel", "pydantic_settings.BaseSettings"]` (and audit FastAPI `Annotated` DI params). Naive TC autofix moves annotations Pydantic/FastAPI evaluate **at runtime** behind `if TYPE_CHECKING:` and breaks the app. "Low-noise, mechanical" holds only with that config. |
 | ruff `ANN` (scoped) | **AGREE** | Source is already ~fully annotated (this audit found no unannotated defs), so churn ≈ 0 — it is exactly the annotation-*presence* gate ty cannot provide (leaf §0), and it closes the Pyright-strict(IDE) vs ty(CI) divergence. Adopt with `per-file-ignores` `"tests/*" = ["ANN"]` (mirror the existing S-rule exemptions incl. `init/tests/**`) and global `ANN401` ignore initially — F3/F4/F11 shrink the `Any` surface first. |
 | `PYI` | **AGREE — skip** | No shipped stubs. |
