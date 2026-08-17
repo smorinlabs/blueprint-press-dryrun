@@ -365,3 +365,4 @@ no known-gap bucket remains. Numbering continues at PROBLEM-21.
 | time (UTC) | step | command / action | outcome |
 |---|---|---|---|
 | 2026-08-17T04:33:05Z | T03 (source config) | wrote press/press-source.toml (7 fields incl display_name); uv run press verify --target <worktree> --json | PASS gate: config accepted (no exit-2 missing-config); exit 1 with leaks dominated by CHANGELOG — rules not yet declared |
+| 2026-08-17T04:33:39Z | T05 (rules + check-tools) | wrote press/press-rules.toml (substring app_name+app_name_upper; regenerate uv.lock/bun.lock; reset CHANGELOG) + regen scripts; press check-tools --target <worktree> | PASS exit 0: git, uv, scripts/regen-bun-lock.sh all resolve; win32 entry filtered on darwin |

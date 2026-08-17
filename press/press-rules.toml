@@ -1,0 +1,28 @@
+# This repo is a press target (design 0006): every tracked excluded file
+# declares its neutralization, and the identity variants that leaked in
+# dogfood Run 3 (G3/G4/G5) are closed by declaration, not by ignores.
+
+[rules]
+# G3: plbp appears in glued forms (_plbp_owned, plbp-web) and PLBP in
+# uppercase glued forms — the token is word-disjoint in this repo.
+substring_rewrite_fields = ["app_name", "app_name_upper"]
+
+# G2: bun.lock is excluded from rewrite; regenerate under the new identity.
+[[regenerate]]
+file = "uv.lock"
+command = ["uv", "lock"]
+
+[[regenerate]]
+file = "bun.lock"
+command = ["scripts/regen-bun-lock.sh"]
+platforms = ["darwin", "linux"]
+
+[[regenerate]]
+file = "bun.lock"
+command = ["powershell", "-NoProfile", "-File", "scripts/regen-bun-lock.ps1"]
+platforms = ["win32"]
+
+# G1: CHANGELOG is release history of the template, not the fork.
+[[reset]]
+file = "CHANGELOG.md"
+stub = "# Changelog\n"
