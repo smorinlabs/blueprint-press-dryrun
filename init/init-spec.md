@@ -75,12 +75,12 @@ Inventory of `github.com/smorinlabs/py-launch-blueprint` (fetched and verified):
 
 | # | Decision |
 |---|---|
-| **Detection** | A marker file `init/.blueprint-initialized` gates the guard. The guard **skips** (does not block) if any of: the marker exists; `origin` points at the original blueprint repo; or a local contribution sentinel `init/.blueprint-contributor` exists. |
+| **Detection** | A marker file `init/.blueprint-initialized` gates the guard. The guard **skips** (does not block) if any of: the marker exists; a press receipt `press/press-receipt.toml` exists (the repo was rebranded by the external template-press engine); `origin` points at the original blueprint repo; or a local contribution sentinel `init/.blueprint-contributor` exists. |
 | **Contribution sentinel** | `init/.blueprint-contributor` is **git-ignored** — local-only, so it never leaks into a contributor's PR or downstream. It unblocks people who forked the blueprint to contribute back. |
 | **Guard — two tiers** | The guard does two distinct jobs, split: **discovery** (broad, gentle) and **safety** (narrow, hard). |
 | **Tier 1 — discovery** | A non-fatal warning banner printed on **every recipe run**, via a single parse-time `shell()` variable in the `Justfile`. Zero per-recipe boilerplate; covers all current and future recipes automatically. |
 | **Tier 2 — safety** | A **hard block** (`_guard` recipe as a dependency) on only the small risk-based subset — recipes that produce a wrong artifact, an external side effect, or an identity-bearing write (`build`, `pr-to-testrepo`, `clean-pr-to-testrepo`, future `publish`). `init` / `init-doctor` omit it so the escape hatch always works. |
-| **Implementation (guard)** | `init/guard.sh` is **pure shell** (fast, dependency-free), called as `guard.sh warn` (Tier 1) or `guard.sh block` (Tier 2). Both modes share three skip conditions: marker exists, contribution sentinel exists, or `origin` matches the original blueprint repo. The warn mode **must always `exit 0`** — a non-zero exit from a `shell()` call aborts `just`. |
+| **Implementation (guard)** | `init/guard.sh` is **pure shell** (fast, dependency-free), called as `guard.sh warn` (Tier 1) or `guard.sh block` (Tier 2). Both modes share four skip conditions: marker exists, press receipt (`press/press-receipt.toml`) exists, contribution sentinel exists, or `origin` matches the original blueprint repo. The warn mode **must always `exit 0`** — a non-zero exit from a `shell()` call aborts `just`. |
 | **Substitution** | **Manifest-driven structured rewrite.** `init/manifest.toml` is the single source of truth — shared by `init` and `init-doctor`. |
 | **`init` run model** | **Interactive walkthrough** (`questionary`) by default; **`--config answers.toml`** for non-interactive/CI. Every interactive run **persists the answers** it used. |
 | **Idempotency** | **Strict one-shot** — refuses if the marker exists (`--force` overrides). |
@@ -88,7 +88,7 @@ Inventory of `github.com/smorinlabs/py-launch-blueprint` (fetched and verified):
 | **`init-doctor`** | **Report by default**; `--fix` handles only the safe **environment** class (installs). Migration/identity drift is reported but only ever *changed* by `init`. |
 | **Implementation** | `init.py` / `init_doctor.py` are **Python PEP 723 inline-metadata scripts** run via `uv run` — `uv` provisions an ephemeral env, so they need no project venv. `tomlkit` preserves comments on structured edits. (Guard implementation: see the Tier rows above.) |
 | **Exposure** | `just` recipes only — never subcommands of the project's own CLI (bootstrap + ownership reasons). |
-| **Containment** | Everything lives in `init/`, including the markers. The only footprint outside `init/` is in the `Justfile` (the Tier-1 `_blueprint_notice` variable, the `_guard` recipe, the `_guard` dependency token on each subset recipe, and the `init` / `init-doctor` recipes), one CI workflow, and one `.gitignore` line — all removed by `init --prune`. Default is **keep** (the guard self-silences post-init, and `init-doctor`'s environment checks stay useful). |
+| **Containment** | Everything lives in `init/`, including the markers. The only footprint outside `init/` is in the `Justfile` (the Tier-1 `_blueprint_notice` variable, the `_guard` recipe, the `_guard` dependency token on each subset recipe, and the `init` / `init-doctor` recipes), one CI workflow, and one `.gitignore` line — all removed by `init --prune`. The press receipt (`press/press-receipt.toml`) is the one external artifact the guard *reads* but does not own: it is written by the external template-press engine, and `init --prune` neither creates nor removes it. Default is **keep** (the guard self-silences post-init, and `init-doctor`'s environment checks stay useful). |
 
 ---
 
@@ -128,10 +128,13 @@ recipes, and the `_guard` dependency token on each Tier-2 subset recipe;
 The guard does two distinct jobs — *discovery* (nudge a developer to run `just init`) and
 *safety* (stop an operation that produces a wrong result un-migrated). These are split
 into two tiers backed by one shell script, `init/guard.sh`, which uses only `git` and
-POSIX shell — no Python, no venv. Both tiers share three **skip conditions**: the marker
-`init/.blueprint-initialized` exists, the contribution sentinel `init/.blueprint-contributor`
-exists, or `git remote get-url origin` (normalized for SSH/HTTPS/`.git`) matches the
-original `smorinlabs/py-launch-blueprint`.
+POSIX shell — no Python, no venv. Both tiers share four **skip conditions**: the marker
+`init/.blueprint-initialized` exists, the press receipt `press/press-receipt.toml` exists
+(the repo was rebranded by the external template-press engine), the contribution sentinel
+`init/.blueprint-contributor` exists, or `git remote get-url origin` (normalized for
+SSH/HTTPS/`.git`) matches the original `smorinlabs/py-launch-blueprint` (or its
+pre-org-move alias `smorin/py-launch-blueprint`, kept so clones from before the
+org move still get a silent guard).
 
 **Tier 1 — universal discovery warning.** A single parse-time variable near the top of
 the `Justfile`:

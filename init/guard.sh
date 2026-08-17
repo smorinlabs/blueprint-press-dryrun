@@ -5,8 +5,15 @@
 #
 # Shared skip conditions (any one of them silences both modes):
 #   1. init/.blueprint-initialized exists  → migration already done
-#   2. init/.blueprint-contributor exists  → local opt-out for blueprint maintainers
-#   3. origin URL (normalized) matches the canonical blueprint repo
+#   2. press/press-receipt.toml exists     → rebranded by template-press
+#   3. init/.blueprint-contributor exists  → local opt-out for blueprint maintainers
+#   4. origin URL (normalized) matches the canonical blueprint repo
+#
+# Condition 2 exists because the rebrand engine is migrating out of this repo:
+# `press rebrand` writes a receipt where init.py writes the marker, and a fork
+# pressed with the external tool must not be blocked forever by a guard that
+# only recognizes the embedded engine's artifact. Both are accepted — this is
+# additive, so forks carrying only the legacy marker keep working untouched.
 #
 # POSIX-y bash; no Python, no venv. Hot path: runs before `uv sync` on a bare clone.
 
@@ -14,6 +21,7 @@ set -u
 
 guard_dir="$(cd "$(dirname "$0")" && pwd)"
 marker="${guard_dir}/.blueprint-initialized"
+receipt="${guard_dir}/../press/press-receipt.toml"
 contributor="${guard_dir}/.blueprint-contributor"
 
 # Canonical blueprint owner/repo pairs. Pre-org-move (`smorin/`) included so
@@ -40,6 +48,7 @@ origin_matches_blueprint() {
 
 should_skip() {
     [ -f "$marker" ] && return 0
+    [ -f "$receipt" ] && return 0
     [ -f "$contributor" ] && return 0
     origin_matches_blueprint && return 0
     return 1

@@ -9,13 +9,19 @@
 #
 # Layered defense: `init --prune` also deletes the workflow file itself.
 #
-# Exit 0  → all good (marker absent, or repo is not the blueprint)
-# Exit 1  → marker present in the blueprint repo
+# The press receipt (press/press-receipt.toml) is the same foot-gun via the
+# external engine: guard.sh accepts it as an initialized marker, so a receipt
+# committed to the blueprint would silently disarm both guard tiers in every
+# generated project. It is rejected here alongside the legacy marker.
+#
+# Exit 0  → all good (marker and receipt absent, or repo is not the blueprint)
+# Exit 1  → marker or receipt present in the blueprint repo
 
 set -eu
 
 scope="${GITHUB_REPOSITORY:-}"
 marker_path="${MARKER_PATH:-init/.blueprint-initialized}"
+receipt_path="${RECEIPT_PATH:-press/press-receipt.toml}"
 
 # Outside the blueprint repo this check is a no-op.
 case "$scope" in
@@ -35,5 +41,11 @@ if [ -f "$marker_path" ]; then
     exit 1
 fi
 
-printf 'check_no_marker: %s absent — ok\n' "$marker_path"
+if [ -f "$receipt_path" ]; then
+    printf >&2 'check_no_marker: %s exists in the blueprint repo — '\
+'someone has run `press rebrand` here and committed the receipt. Revert.\n' "$receipt_path"
+    exit 1
+fi
+
+printf 'check_no_marker: %s and %s absent — ok\n' "$marker_path" "$receipt_path"
 exit 0
