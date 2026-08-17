@@ -55,7 +55,7 @@ dependencies = [
 [project.optional-dependencies]
 web = [
   "fastapi>=0.110.0",
-  "uvicorn[standard]>=0.29.0",
+  "uvicorn[standard]>=0.52.1",
   "pydantic-settings>=2.4.0",                 # WEB-30 typed env settings
   "fastapi-pagination>=0.12.26",              # WEB-03 pagination conventions
   "slowapi>=0.1.9",                           # WEB-22 rate limiting
