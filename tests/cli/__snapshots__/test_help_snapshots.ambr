@@ -15,8 +15,8 @@
 # ---
 # name: test_help_snapshot[bpd config get]
   '''
-  Usage: bpd config get [OPTIONS] {logging.file|logging.file_level|logging.format
-                         |logging.level|output.color|output.format|token}
+  Usage: bpd config get [OPTIONS] {logging.file|logging.file_level|logging.format|
+                        logging.level|output.color|output.format|token}
   
     Show a resolved config value and where it came from.
   
@@ -116,8 +116,8 @@
 # ---
 # name: test_help_snapshot[bpd config set]
   '''
-  Usage: bpd config set [OPTIONS] {logging.file|logging.file_level|logging.format
-                         |logging.level|output.color|output.format} VALUE
+  Usage: bpd config set [OPTIONS] {logging.file|logging.file_level|logging.format|
+                        logging.level|output.color|output.format} VALUE
   
     Write a non-secret config value to the TOML config file.
   
