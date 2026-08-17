@@ -88,7 +88,7 @@ Inventory of `github.com/smorinlabs/py-launch-blueprint` (fetched and verified):
 | **`init-doctor`** | **Report by default**; `--fix` handles only the safe **environment** class (installs). Migration/identity drift is reported but only ever *changed* by `init`. |
 | **Implementation** | `init.py` / `init_doctor.py` are **Python PEP 723 inline-metadata scripts** run via `uv run` — `uv` provisions an ephemeral env, so they need no project venv. `tomlkit` preserves comments on structured edits. (Guard implementation: see the Tier rows above.) |
 | **Exposure** | `just` recipes only — never subcommands of the project's own CLI (bootstrap + ownership reasons). |
-| **Containment** | Everything lives in `init/`, including the markers. The only footprint outside `init/` is in the `Justfile` (the Tier-1 `_blueprint_notice` variable, the `_guard` recipe, the `_guard` dependency token on each subset recipe, and the `init` / `init-doctor` recipes), one CI workflow, and one `.gitignore` line — all removed by `init --prune`. Default is **keep** (the guard self-silences post-init, and `init-doctor`'s environment checks stay useful). |
+| **Containment** | Everything lives in `init/`, including the markers. The only footprint outside `init/` is in the `Justfile` (the Tier-1 `_blueprint_notice` variable, the `_guard` recipe, the `_guard` dependency token on each subset recipe, and the `init` / `init-doctor` recipes), one CI workflow, and one `.gitignore` line — all removed by `init --prune`. The press receipt (`press/press-receipt.toml`) is the one external artifact the guard *reads* but does not own: it is written by the external template-press engine, and `init --prune` neither creates nor removes it. Default is **keep** (the guard self-silences post-init, and `init-doctor`'s environment checks stay useful). |
 
 ---
 
@@ -132,7 +132,9 @@ POSIX shell — no Python, no venv. Both tiers share four **skip conditions**: t
 `init/.blueprint-initialized` exists, the press receipt `press/press-receipt.toml` exists
 (the repo was rebranded by the external template-press engine), the contribution sentinel
 `init/.blueprint-contributor` exists, or `git remote get-url origin` (normalized for
-SSH/HTTPS/`.git`) matches the original `smorinlabs/py-launch-blueprint`.
+SSH/HTTPS/`.git`) matches the original `smorinlabs/py-launch-blueprint` (or its
+pre-org-move alias `smorin/py-launch-blueprint`, kept so clones from before the
+org move still get a silent guard).
 
 **Tier 1 — universal discovery warning.** A single parse-time variable near the top of
 the `Justfile`:
