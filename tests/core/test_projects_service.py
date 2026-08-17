@@ -3,7 +3,10 @@
 import pytest
 
 from blueprint_press_dryrun.core.adapters.in_memory import InMemoryProjectsRepository
-from blueprint_press_dryrun.core.errors import ProjectNotFoundError, WorkspaceNotFoundError
+from blueprint_press_dryrun.core.errors import (
+    ProjectNotFoundError,
+    WorkspaceNotFoundError,
+)
 from blueprint_press_dryrun.core.models import Project
 from blueprint_press_dryrun.core.services.projects import ProjectsService
 

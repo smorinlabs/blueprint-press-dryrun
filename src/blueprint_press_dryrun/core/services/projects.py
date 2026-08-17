@@ -26,7 +26,10 @@ no FastAPI — the transport lives in
 wired instance via :func:`blueprint_press_dryrun.composition.build_projects_service`.
 """
 
-from blueprint_press_dryrun.core.errors import ProjectNotFoundError, WorkspaceNotFoundError
+from blueprint_press_dryrun.core.errors import (
+    ProjectNotFoundError,
+    WorkspaceNotFoundError,
+)
 from blueprint_press_dryrun.core.models import Project
 from blueprint_press_dryrun.core.ports import ProjectsRepository
 
