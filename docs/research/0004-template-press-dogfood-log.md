@@ -364,3 +364,4 @@ no known-gap bucket remains. Numbering continues at PROBLEM-21.
 
 | time (UTC) | step | command / action | outcome |
 |---|---|---|---|
+| 2026-08-17T04:33:05Z | T03 (source config) | wrote press/press-source.toml (7 fields incl display_name); uv run press verify --target <worktree> --json | PASS gate: config accepted (no exit-2 missing-config); exit 1 with leaks dominated by CHANGELOG — rules not yet declared |
